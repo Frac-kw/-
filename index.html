@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRAC | Real Authentic Coffee</title>
+    <meta name="description" content="FRAC - Your destination for real authentic coffee. Explore our latest items and news.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Light Theme (Morning) */
+            --bg-color: #f5f7fa;
+            --card-bg: #ffffff;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --accent-color: #1b4332; /* Dark green from logo */
+            --gold-color: #d4af37;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --input-bg: #f1f3f5;
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="evening"] {
+            /* Dark Theme (Evening) */
+            --bg-color: #1a1a2e;
+            --card-bg: #16213e;
+            --text-main: #e9ecef;
+            --text-muted: #adb5bd;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --glass-bg: rgba(22, 33, 62, 0.8);
+            --input-bg: #0f3460;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            transition: var(--transition);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body.rtl {
+            direction: rtl;
+            font-family: 'Tajawal', 'Poppins', sans-serif;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- Header --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .logo-box {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-color);
+            font-size: 0.8rem;
+            border: 2px solid var(--gold-color);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .action-btn {
+            background: var(--card-bg);
+            border: 1px solid rgba(0,0,0,0.1);
+            color: var(--text-main);
+            padding: 10px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: var(--accent-color);
+        }
+
+        .settings-btn {
+            background: var(--card-bg);
+            border: 1px solid rgba(0,0,0,0.1);
+            color: var(--text-main);
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .settings-btn:hover {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .settings-btn:hover i {
+            transform: rotate(90deg);
+        }
+
+        .settings-btn i {
+            transition: transform 0.4s ease;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, var(--accent-color), #2d6a4f);
+            border-radius: 24px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero::after {
+            content: "FRAC";
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 8rem;
+            font-weight: 800;
+            opacity: 0.05;
+            color: white;
+        }
+
+        body.rtl .hero::after {
+            right: auto;
+            left: -20px;
+        }
+
+        /* --- Admin Panel --- */
+        #admin-panel {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+            border: 2px dashed var(--gold-color);
+            display: none;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .admin-title {
+            font-weight: 600;
+            color: var(--gold-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .admin-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .admin-input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            background: var(--input-bg);
+            color: var(--text-main);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .primary-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .primary-btn:hover {
+            filter: brightness(1.2);
+            transform: translateY(-2px);
+        }
+
+        .logout-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        /* --- Sections --- */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        /* News Section */
+        .news-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .news-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .news-card:hover {
+            transform: scale(1.01);
+        }
+
+        /* Items Section Updated to Cards */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .item-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            animation: fadeIn 0.5s ease forwards;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .item-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .item-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: #eee;
+        }
+
+        .item-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .item-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text-main);
+        }
+
+        .item-price {
+            font-size: 1rem;
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .delete-btn {
+            background: #ff7675;
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+            opacity: 0;
+            pointer-events: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .is-admin .delete-btn {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .delete-btn:hover {
+            background: #d63031;
+            transform: scale(1.1) rotate(15deg);
+        }
+
+        .item-card .delete-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 10;
+        }
+
+        body.rtl .item-card .delete-btn {
+            right: auto;
+            left: 15px;
+        }
+
+        /* Image Upload Area */
+        .upload-area {
+            border: 2px dashed var(--text-muted);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+            position: relative;
+            background: var(--input-bg);
+        }
+
+        .upload-area.dragover {
+            border-color: var(--accent-color);
+            background: rgba(27, 67, 50, 0.1);
+        }
+
+        .upload-area i {
+            font-size: 2rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .upload-area p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        #image-preview {
+            max-width: 100%;
+            max-height: 100px;
+            border-radius: 10px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .admin-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .admin-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .admin-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* --- Modal --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 28px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            position: relative;
+            transform: scale(0.9);
+            transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content h2 {
+            margin-bottom: 25px;
+            text-align: center;
+            color: var(--accent-color);
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .modal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .error-msg {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            text-align: center;
+            display: none;
+            background: rgba(231, 76, 60, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px;
+            color: var(--text-muted);
+            font-style: italic;
+            grid-column: 1 / -1;
+            font-size: 1.1rem;
+        }
+
+        /* --- Location Card --- */
+        .location-section, .social-section {
+            margin-bottom: 20px;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 600px) {
+            .social-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .location-card, .social-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: var(--card-bg);
+            padding: 15px 25px;
+            border-radius: 20px;
+            text-decoration: none;
+            color: var(--text-main);
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition);
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .location-card:hover, .social-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .location-icon, .social-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(27, 67, 50, 0.1);
+            color: var(--accent-color);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .location-card:hover .location-icon, .social-card:hover .social-icon {
+            background: var(--accent-color);
+            color: white;
+            transform: rotate(15deg);
+        }
+
+        .location-info, .social-info {
+            flex-grow: 1;
+        }
+
+        .location-info h3, .social-info h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .location-info p, .social-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .external-icon {
+            color: var(--text-muted);
+            opacity: 0.5;
+            transition: var(--transition);
+        }
+
+        .location-card:hover .external-icon, .social-card:hover .external-icon {
+            opacity: 1;
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        body.rtl .location-card:hover .external-icon, 
+        body.rtl .social-card:hover .external-icon {
+            transform: translateX(-5px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body data-theme="morning">
+
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">
+                <div class="logo-box">FRAC</div>
+                <span>FRAC</span>
+            </a>
+            <div class="nav-actions">
+                <!-- Theme Toggle Button -->
+                <button class="action-btn" id="theme-toggle">
+                    <i class="fas fa-sun" id="theme-icon"></i>
+                    <span id="theme-text" data-en="Morning" data-ar="صباحي">Morning</span>
+                </button>
+                
+                <!-- Language Toggle Button -->
+                <button class="action-btn" id="lang-toggle">
+                    <i class="fas fa-globe"></i>
+                    <span id="lang-text">العربية</span>
+                </button>
+
+                <button class="settings-btn" id="open-login">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1 id="hero-title">Real Authentic Coffee</h1>
+            <p id="hero-desc">Experience the finest brews and freshest treats at FRAC.</p>
+        </section>
+
+        <!-- Location Section -->
+        <section class="location-section">
+            <a href="https://www.google.com/maps/place/FRAC+%7C+%D9%81%D8%B1%D8%A7%D9%83%E2%80%AD/@29.0871452,48.0788365,17z/data=!3m1!4b1!4m6!3m5!1s0x3fcfa7f4a3125ce1:0x201965e032ba9cf!8m2!3d29.0871452!4d48.0788365!16s%2Fg%2F11y0cyw4zb?entry=ttu&g_ep=EgoyMDI2MDQyNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="location-card">
+                <div class="location-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="location-info">
+                    <h3 id="location-text">Our Location</h3>
+                    <p id="location-subtext">Click to open Google Maps</p>
+                </div>
+                <i class="fas fa-chevron-right external-icon"></i>
+            </a>
+        </section>
+
+        <!-- Social Media Section -->
+        <section class="social-grid">
+            <a href="https://www.tiktok.com/@frac.kw?_r=1&_t=ZS-95x3IGUo1JJ" target="_blank" class="social-card">
+                <div class="social-icon">
+                    <i class="fab fa-tiktok"></i>
+                </div>
+                <div class="social-info">
+                    <h3 id="tiktok-text">TikTok</h3>
+                    <p id="tiktok-subtext">Follow our latest vibes</p>
+                </div>
+                <i class="fas fa-chevron-right external-icon"></i>
+            </a>
+            <a href="https://www.instagram.com/frac.kw?igsh=MXV1anZ5eHFhZTc5eQ==" target="_blank" class="social-card">
+                <div class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </div>
+                <div class="social-info">
+                    <h3 id="instagram-text">Instagram</h3>
+                    <p id="instagram-subtext">See our coffee gallery</p>
+                </div>
+                <i class="fas fa-chevron-right external-icon"></i>
+            </a>
+        </section>
+
+        <!-- Admin Panel -->
+        <section id="admin-panel">
+            <div class="admin-header">
+                <div class="admin-title">
+                    <i class="fas fa-user-shield"></i>
+                    <span id="admin-panel-title">Owner Control Panel</span>
+                </div>
+                <button class="logout-btn" id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> <span id="logout-text">Logout</span>
+                </button>
+            </div>
+            
+            <div class="admin-grid">
+                <!-- Item Management -->
+                <div class="admin-section">
+                    <h4 style="margin-bottom: 15px; border-bottom: 1px solid var(--gold-color); padding-bottom: 5px;" id="admin-item-title">Add New Item</h4>
+                    <div class="admin-row">
+                        <div class="admin-form-group">
+                            <label id="label-item-name">Item Name</label>
+                            <input type="text" id="item-input" placeholder="e.g. Americano">
+                        </div>
+                        <div class="admin-form-group">
+                            <label id="label-item-price">Price (KD)</label>
+                            <input type="number" id="price-input" placeholder="e.g. 1.500">
+                        </div>
+                    </div>
+                    <div class="admin-form-group">
+                        <label id="label-item-image">Item Image</label>
+                        <div class="upload-area" id="drop-zone">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p id="upload-text">Drag & Drop or Click to Upload</p>
+                            <input type="file" id="file-input" hidden accept="image/*">
+                            <img id="image-preview" alt="Preview">
+                        </div>
+                    </div>
+                    <button class="primary-btn" id="add-item-btn" style="width: 100%; margin-top: 15px;">
+                        <i class="fas fa-plus"></i> <span id="btn-add-item">Add Item</span>
+                    </button>
+                </div>
+
+                <!-- News Management -->
+                <div class="admin-section">
+                    <h4 style="margin-bottom: 15px; border-bottom: 1px solid var(--gold-color); padding-bottom: 5px;" id="admin-news-title">Add Latest News</h4>
+                    <div class="admin-input-group">
+                        <input type="text" id="news-input" placeholder="e.g. New flavor alert!">
+                        <button class="primary-btn" id="add-news-btn">
+                            <i class="fas fa-plus"></i> <span id="btn-add-news">Add News</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- News Section -->
+        <section class="news-section">
+            <div class="section-header">
+                <i class="fas fa-newspaper" style="color: var(--accent-color);"></i>
+                <h2 id="news-title">Latest News</h2>
+            </div>
+            <div class="news-container" id="news-list">
+                <!-- News items will be injected here -->
+            </div>
+        </section>
+
+        <!-- Items Section -->
+        <section class="items-section">
+            <div class="section-header">
+                <i class="fas fa-utensils" style="color: var(--accent-color);"></i>
+                <h2 id="items-title">Our Items</h2>
+            </div>
+            <div class="items-grid" id="items-grid">
+                <!-- Items will be injected here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="login-modal">
+        <div class="modal-content">
+            <h2 id="login-modal-title">Owner Login</h2>
+            <form class="modal-form" id="login-form">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit" class="primary-btn" id="btn-login-submit">Login</button>
+                <button type="button" class="primary-btn" style="background: #95a5a6;" id="close-login">Cancel</button>
+                <div class="error-msg" id="login-error">Invalid username or password.</div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- Translations ---
+        const translations = {
+            en: {
+                heroTitle: "Real Authentic Coffee | قهوة حقيقية بمذاقها الأصيل",
+                heroDesc: "Experience the finest brews and freshest treats at FRAC.",
+                newsTitle: "Latest News",
+                itemsTitle: "Our Items",
+                morning: "Morning",
+                evening: "Evening",
+                ownerPanel: "Owner Control Panel",
+                logout: "Logout",
+                addNewItem: "Add New Item",
+                addLatestNews: "Add Latest News",
+                add: "Add",
+                addItem: "Add Item",
+                addNews: "Add News",
+                itemName: "Item Name",
+                itemPrice: "Price (KD)",
+                itemImage: "Item Image",
+                uploadText: "Drag & Drop or Click to Upload",
+                login: "Owner Login",
+                loginBtn: "Login",
+                cancel: "Cancel",
+                userPlaceholder: "Username",
+                passPlaceholder: "Password",
+                errorMsg: "Invalid username or password.",
+                emptyNews: "No news posted yet.",
+                emptyItems: "No items available yet.",
+                langText: "العربية",
+                locationText: "Our Location",
+                locationSubtext: "Find us on Google Maps",
+                tiktokText: "TikTok",
+                tiktokSubtext: "Follow our latest vibes",
+                instagramText: "Instagram",
+                instagramSubtext: "See our coffee gallery"
+            },
+            ar: {
+                heroTitle: "قهوة حقيقية بمذاقها الأصيل | Real Authentic Coffee",
+                heroDesc: "استمتع بأجود أنواع القهوة والمخبوزات الطازجة في فراك.",
+                newsTitle: "أحدث الأخبار",
+                itemsTitle: "منتجاتنا",
+                morning: "صباحي",
+                evening: "مسائي",
+                ownerPanel: "لوحة تحكم المالك",
+                logout: "تسجيل الخروج",
+                addNewItem: "إضافة منتج جديد",
+                addLatestNews: "إضافة خبر جديد",
+                add: "إضافة",
+                addItem: "إضافة المنتج",
+                addNews: "إضافة الخبر",
+                itemName: "اسم الصنف",
+                itemPrice: "السعر (د.ك)",
+                itemImage: "صورة الصنف",
+                uploadText: "اسحب الصورة هنا أو اضغط للرفع",
+                login: "دخول المالك",
+                loginBtn: "دخول",
+                cancel: "إلغاء",
+                userPlaceholder: "اسم المستخدم",
+                passPlaceholder: "كلمة المرور",
+                errorMsg: "خطأ في اسم المستخدم أو كلمة المرور",
+                emptyNews: "لا يوجد أخبار حالياً",
+                emptyItems: "لا يوجد منتجات حالياً",
+                langText: "English",
+                locationText: "موقعنا",
+                locationSubtext: "اضغط لفتح قوقل ماب",
+                tiktokText: "تيك توك",
+                tiktokSubtext: "تابع أحدث فيديوهاتنا",
+                instagramText: "انستقرام",
+                instagramSubtext: "شاهد معرض صورنا"
+            }
+        };
+
+        // --- Data & Initialization ---
+        const DEFAULT_ITEMS = [
+            { name: "☕ Espresso", price: "1.250", image: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=400&auto=format&fit=crop" },
+            { name: "🍵 Green Tea", price: "1.000", image: "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?q=80&w=400&auto=format&fit=crop" },
+            { name: "🥐 Butter Croissant", price: "1.500", image: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=400&auto=format&fit=crop" }
+        ];
+        const DEFAULT_NEWS = ["🎉 Grand opening!", "☀️ Morning coffee free refill", "🌙 Evening discount 15%"];
+
+        let items = JSON.parse(localStorage.getItem('frac_items')) || DEFAULT_ITEMS;
+        let news = JSON.parse(localStorage.getItem('frac_news')) || DEFAULT_NEWS;
+        let currentLang = localStorage.getItem('frac_lang') || 'en';
+        let currentTheme = localStorage.getItem('frac_theme') || 'morning';
+        let isLoggedIn = false;
+        let selectedImageBase64 = "";
+
+        // --- DOM Elements ---
+        const itemsGrid = document.getElementById('items-grid');
+        const newsList = document.getElementById('news-list');
+        const adminPanel = document.getElementById('admin-panel');
+        const loginModal = document.getElementById('login-modal');
+        const loginForm = document.getElementById('login-form');
+        const loginError = document.getElementById('login-error');
+        
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const themeText = document.getElementById('theme-text');
+        
+        const langToggle = document.getElementById('lang-toggle');
+        const langText = document.getElementById('lang-text');
+        
+        const openLoginBtn = document.getElementById('open-login');
+        const closeLoginBtn = document.getElementById('close-login');
+        const logoutBtn = document.getElementById('logout-btn');
+        
+        const addItemBtn = document.getElementById('add-item-btn');
+        const addNewsBtn = document.getElementById('add-news-btn');
+        const itemInput = document.getElementById('item-input');
+        const priceInput = document.getElementById('price-input');
+        const newsInput = document.getElementById('news-input');
+        
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const imagePreview = document.getElementById('image-preview');
+        const uploadIcon = dropZone.querySelector('i');
+        const uploadPara = document.getElementById('upload-text');
+
+        // --- Core Functions ---
+
+        function init() {
+            // Validate items format (Fix 'undefined' issue from old version)
+            items = items.map(item => {
+                if (typeof item === 'string') {
+                    return { name: item, price: "0.000", image: "" };
+                }
+                return item;
+            });
+            
+            setTheme(currentTheme);
+            setLanguage(currentLang);
+            render();
+            setupEventListeners();
+        }
+
+        function render() {
+            const t = translations[currentLang];
+
+            // Render Items
+            itemsGrid.innerHTML = '';
+            if (!Array.isArray(items) || items.length === 0) {
+                itemsGrid.innerHTML = `<div class="empty-state">${t.emptyItems}</div>`;
+            } else {
+                items.forEach((item, index) => {
+                    // Safety check for item structure
+                    const name = item.name || (typeof item === 'string' ? item : "Unknown");
+                    const price = item.price || "0.000";
+                    const image = item.image || 'https://via.placeholder.com/400x300?text=FRAC';
+
+                    const card = document.createElement('div');
+                    card.className = `item-card ${isLoggedIn ? 'is-admin' : ''}`;
+                    card.innerHTML = `
+                        <img src="${image}" class="item-image" alt="${name}">
+                        <div class="item-info">
+                            <div class="item-name">${escapeHtml(name)}</div>
+                            <div class="item-price">${price} ${currentLang === 'en' ? 'KD' : 'د.ك'}</div>
+                        </div>
+                        <button class="delete-btn" onclick="deleteItem(${index})">
+                            <i class="fas fa-trash-can"></i>
+                        </button>
+                    `;
+                    itemsGrid.appendChild(card);
+                });
+            }
+
+            // Render News
+            newsList.innerHTML = '';
+            if (news.length === 0) {
+                newsList.innerHTML = `<div class="empty-state">${t.emptyNews}</div>`;
+            } else {
+                news.forEach((n, index) => {
+                    const card = document.createElement('div');
+                    card.className = `news-card ${isLoggedIn ? 'is-admin' : ''}`;
+                    card.innerHTML = `
+                        <div class="news-content">
+                            <div class="news-date">${currentLang === 'en' ? 'Today' : 'اليوم'}</div>
+                            <h3>${escapeHtml(n)}</h3>
+                        </div>
+                        <button class="delete-btn" onclick="deleteNews(${index})">
+                            <i class="fas fa-trash-can"></i>
+                        </button>
+                    `;
+                    newsList.appendChild(card);
+                });
+            }
+
+            adminPanel.style.display = isLoggedIn ? 'block' : 'none';
+        }
+
+        function setTheme(theme) {
+            currentTheme = theme;
+            document.body.setAttribute('data-theme', theme);
+            localStorage.setItem('frac_theme', theme);
+            
+            if (theme === 'morning') {
+                themeIcon.className = 'fas fa-sun';
+                themeText.textContent = translations[currentLang].morning;
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                themeText.textContent = translations[currentLang].evening;
+            }
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('frac_lang', lang);
+            document.body.classList.toggle('rtl', lang === 'ar');
+            
+            const t = translations[lang];
+            
+            document.getElementById('hero-title').textContent = t.heroTitle;
+            document.getElementById('hero-desc').textContent = t.heroDesc;
+            document.getElementById('news-title').textContent = t.newsTitle;
+            document.getElementById('items-title').textContent = t.itemsTitle;
+            document.getElementById('admin-panel-title').textContent = t.ownerPanel;
+            document.getElementById('logout-text').textContent = t.logout;
+            
+            document.getElementById('admin-item-title').textContent = t.addNewItem;
+            document.getElementById('label-item-name').textContent = t.itemName;
+            document.getElementById('label-item-price').textContent = t.itemPrice;
+            document.getElementById('label-item-image').textContent = t.itemImage;
+            document.getElementById('upload-text').textContent = t.uploadText;
+            document.getElementById('btn-add-item').textContent = t.addItem;
+            
+            document.getElementById('admin-news-title').textContent = t.addLatestNews;
+            document.getElementById('btn-add-news').textContent = t.addNews;
+            
+            document.getElementById('login-modal-title').textContent = t.login;
+            document.getElementById('username').placeholder = t.userPlaceholder;
+            document.getElementById('password').placeholder = t.passPlaceholder;
+            document.getElementById('btn-login-submit').textContent = t.loginBtn;
+            document.getElementById('close-login').textContent = t.cancel;
+            document.getElementById('login-error').textContent = t.errorMsg;
+            
+            langText.textContent = t.langText;
+            themeText.textContent = t[currentTheme];
+            
+            document.getElementById('location-text').textContent = t.locationText;
+            document.getElementById('location-subtext').textContent = t.locationSubtext;
+            
+            document.getElementById('tiktok-text').textContent = t.tiktokText;
+            document.getElementById('tiktok-subtext').textContent = t.tiktokSubtext;
+            document.getElementById('instagram-text').textContent = t.instagramText;
+            document.getElementById('instagram-subtext').textContent = t.instagramSubtext;
+            
+            render();
+        }
+
+        function toggleModal(show) {
+            loginModal.classList.toggle('active', show);
+            if (!show) {
+                loginForm.reset();
+                loginError.style.display = 'none';
+            }
+        }
+
+        // --- Image Handling ---
+
+        function handleImageSelect(file) {
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    selectedImageBase64 = e.target.result;
+                    imagePreview.src = selectedImageBase64;
+                    imagePreview.style.display = 'inline-block';
+                    uploadIcon.style.display = 'none';
+                    uploadPara.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function resetUploadArea() {
+            selectedImageBase64 = "";
+            imagePreview.src = "";
+            imagePreview.style.display = 'none';
+            uploadIcon.style.display = 'block';
+            uploadPara.style.display = 'block';
+        }
+
+        // --- Action Handlers ---
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+
+            if (user === 'owner' && pass === 'FRACTEST') {
+                isLoggedIn = true;
+                toggleModal(false);
+                render();
+                // Scroll to admin panel after login
+                setTimeout(() => {
+                    adminPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    adminPanel.style.border = '2px solid var(--accent-color)';
+                    setTimeout(() => {
+                        adminPanel.style.border = '2px dashed var(--gold-color)';
+                    }, 2000);
+                }, 300);
+            } else {
+                loginError.style.display = 'block';
+            }
+        }
+
+        function handleLogout() {
+            isLoggedIn = false;
+            render();
+        }
+
+        function addItem() {
+            const name = itemInput.value.trim();
+            const price = priceInput.value.trim();
+            
+            if (name && price) {
+                items.push({
+                    name: name,
+                    price: parseFloat(price).toFixed(3),
+                    image: selectedImageBase64
+                });
+                saveData();
+                render();
+                itemInput.value = '';
+                priceInput.value = '';
+                resetUploadArea();
+            } else {
+                alert(currentLang === 'en' ? 'Please fill name and price.' : 'يرجى ملء الاسم والسعر.');
+            }
+        }
+
+        function addNews() {
+            const val = newsInput.value.trim();
+            if (val) {
+                news.push(val);
+                saveData();
+                render();
+                newsInput.value = '';
+            }
+        }
+
+        window.deleteItem = function(index) {
+            items.splice(index, 1);
+            saveData();
+            render();
+        };
+
+        window.deleteNews = function(index) {
+            news.splice(index, 1);
+            saveData();
+            render();
+        };
+
+        function saveData() {
+            try {
+                localStorage.setItem('frac_items', JSON.stringify(items));
+                localStorage.setItem('frac_news', JSON.stringify(news));
+            } catch (e) {
+                alert(currentLang === 'en' ? 'Storage full! Try a smaller image.' : 'الذاكرة ممتلئة! حاول استخدام صورة أصغر.');
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // --- Event Listeners ---
+        function setupEventListeners() {
+            themeToggle.addEventListener('click', () => {
+                const nextTheme = currentTheme === 'morning' ? 'evening' : 'morning';
+                setTheme(nextTheme);
+            });
+            
+            langToggle.addEventListener('click', () => {
+                const nextLang = currentLang === 'en' ? 'ar' : 'en';
+                setLanguage(nextLang);
+            });
+            
+            openLoginBtn.addEventListener('click', () => {
+                if (isLoggedIn) {
+                    adminPanel.scrollIntoView({ behavior: 'smooth' });
+                    adminPanel.style.animation = 'fadeIn 0.5s ease 3';
+                } else {
+                    toggleModal(true);
+                }
+            });
+            closeLoginBtn.addEventListener('click', () => toggleModal(false));
+            
+            loginForm.addEventListener('submit', handleLogin);
+            logoutBtn.addEventListener('click', handleLogout);
+            
+            addItemBtn.addEventListener('click', addItem);
+            addNewsBtn.addEventListener('click', addNews);
+            
+            // Drag and Drop
+            dropZone.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', (e) => handleImageSelect(e.target.files[0]));
+            
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('dragover');
+            });
+            
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove('dragover');
+            });
+            
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('dragover');
+                handleImageSelect(e.dataTransfer.files[0]);
+            });
+        }
+
+        init();
+    </script>
+</body>
+</html>
