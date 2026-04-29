@@ -12,6 +12,10 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    
     <style>
         :root {
             /* Light Theme (Morning) */
@@ -878,6 +882,23 @@
             }
         };
 
+        // --- Firebase Configuration ---
+        // REPLACE THE FOLLOWING CONFIG WITH YOUR OWN FROM FIREBASE CONSOLE
+        const firebaseConfig = {
+            apiKey: "AIzaSyBR2W1xHU0ab3NBeRMCOXOWkIWmWF2qIp0",
+            authDomain: "frac-4be2e.firebaseapp.com",
+            databaseURL: "https://frac-4be2e-default-rtdb.firebaseio.com",
+            projectId: "frac-4be2e",
+            storageBucket: "frac-4be2e.firebasestorage.app",
+            messagingSenderId: "807009471592",
+            appId: "1:807009471592:web:a788247dcd99109f343fdd",
+            measurementId: "G-2N2L51GRBF"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
         // --- Data & Initialization ---
         const DEFAULT_ITEMS = [
             { name: "☕ Espresso", price: "1.250", image: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=400&auto=format&fit=crop" },
@@ -886,8 +907,8 @@
         ];
         const DEFAULT_NEWS = ["🎉 Grand opening!", "☀️ Morning coffee free refill", "🌙 Evening discount 15%"];
 
-        let items = JSON.parse(localStorage.getItem('frac_items')) || DEFAULT_ITEMS;
-        let news = JSON.parse(localStorage.getItem('frac_news')) || DEFAULT_NEWS;
+        let items = [];
+        let news = [];
         let currentLang = localStorage.getItem('frac_lang') || 'en';
         let currentTheme = localStorage.getItem('frac_theme') || 'morning';
         let isLoggedIn = false;
@@ -927,18 +948,31 @@
         // --- Core Functions ---
 
         function init() {
-            // Validate items format (Fix 'undefined' issue from old version)
-            items = items.map(item => {
-                if (typeof item === 'string') {
-                    return { name: item, price: "0.000", image: "" };
-                }
-                return item;
-            });
-            
             setTheme(currentTheme);
             setLanguage(currentLang);
-            render();
             setupEventListeners();
+            
+            // Listen for data from Firebase
+            db.ref('items').on('value', (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    // Firebase returns an object or array, convert to array if needed
+                    items = Object.values(data);
+                } else {
+                    items = [];
+                }
+                render();
+            });
+
+            db.ref('news').on('value', (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    news = Object.values(data);
+                } else {
+                    news = [];
+                }
+                render();
+            });
         }
 
         function render() {
@@ -946,14 +980,14 @@
 
             // Render Items
             itemsGrid.innerHTML = '';
-            if (!Array.isArray(items) || items.length === 0) {
+            if (items.length === 0) {
                 itemsGrid.innerHTML = `<div class="empty-state">${t.emptyItems}</div>`;
             } else {
                 items.forEach((item, index) => {
-                    // Safety check for item structure
-                    const name = item.name || (typeof item === 'string' ? item : "Unknown");
+                    const name = item.name || "Unknown";
                     const price = item.price || "0.000";
                     const image = item.image || 'https://via.placeholder.com/400x300?text=FRAC';
+                    const itemKey = item.id; // We'll use the ID from Firebase for deletion
 
                     const card = document.createElement('div');
                     card.className = `item-card ${isLoggedIn ? 'is-admin' : ''}`;
@@ -963,7 +997,7 @@
                             <div class="item-name">${escapeHtml(name)}</div>
                             <div class="item-price">${price} ${currentLang === 'en' ? 'KD' : 'د.ك'}</div>
                         </div>
-                        <button class="delete-btn" onclick="deleteItem(${index})">
+                        <button class="delete-btn" onclick="deleteItem('${itemKey}')">
                             <i class="fas fa-trash-can"></i>
                         </button>
                     `;
@@ -976,15 +1010,15 @@
             if (news.length === 0) {
                 newsList.innerHTML = `<div class="empty-state">${t.emptyNews}</div>`;
             } else {
-                news.forEach((n, index) => {
+                news.forEach((n) => {
                     const card = document.createElement('div');
                     card.className = `news-card ${isLoggedIn ? 'is-admin' : ''}`;
                     card.innerHTML = `
                         <div class="news-content">
                             <div class="news-date">${currentLang === 'en' ? 'Today' : 'اليوم'}</div>
-                            <h3>${escapeHtml(n)}</h3>
+                            <h3>${escapeHtml(n.text)}</h3>
                         </div>
-                        <button class="delete-btn" onclick="deleteNews(${index})">
+                        <button class="delete-btn" onclick="deleteNews('${n.id}')">
                             <i class="fas fa-trash-can"></i>
                         </button>
                     `;
@@ -1120,13 +1154,13 @@
             const price = priceInput.value.trim();
             
             if (name && price) {
-                items.push({
+                const newItemRef = db.ref('items').push();
+                newItemRef.set({
+                    id: newItemRef.key,
                     name: name,
                     price: parseFloat(price).toFixed(3),
                     image: selectedImageBase64
                 });
-                saveData();
-                render();
                 itemInput.value = '';
                 priceInput.value = '';
                 resetUploadArea();
@@ -1138,32 +1172,29 @@
         function addNews() {
             const val = newsInput.value.trim();
             if (val) {
-                news.push(val);
-                saveData();
-                render();
+                const newNewsRef = db.ref('news').push();
+                newNewsRef.set({
+                    id: newNewsRef.key,
+                    text: val
+                });
                 newsInput.value = '';
             }
         }
 
-        window.deleteItem = function(index) {
-            items.splice(index, 1);
-            saveData();
-            render();
+        window.deleteItem = function(id) {
+            if(confirm(currentLang === 'en' ? 'Delete this item?' : 'هل تريد حذف هذا الصنف؟')) {
+                db.ref('items/' + id).remove();
+            }
         };
 
-        window.deleteNews = function(index) {
-            news.splice(index, 1);
-            saveData();
-            render();
+        window.deleteNews = function(id) {
+            if(confirm(currentLang === 'en' ? 'Delete this news?' : 'هل تريد حذف هذا الخبر؟')) {
+                db.ref('news/' + id).remove();
+            }
         };
 
         function saveData() {
-            try {
-                localStorage.setItem('frac_items', JSON.stringify(items));
-                localStorage.setItem('frac_news', JSON.stringify(news));
-            } catch (e) {
-                alert(currentLang === 'en' ? 'Storage full! Try a smaller image.' : 'الذاكرة ممتلئة! حاول استخدام صورة أصغر.');
-            }
+            // No longer needed with Firebase real-time sync
         }
 
         function escapeHtml(text) {
