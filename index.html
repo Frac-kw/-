@@ -1173,6 +1173,38 @@
     </div>
 
     <script>
+        // --- Translation Utility ---
+        async function translateText(text, targetLang) {
+            if (!text || !/[a-zA-Z\u0600-\u06FF]/.test(text)) return text;
+            try {
+                // Using unofficial Google Translate API for quick client-side translation
+                const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
+                const response = await fetch(url);
+                const data = await response.json();
+                return data[0].map(x => x[0]).join('') || text;
+            } catch (e) {
+                console.error("Translation error:", e);
+                return text;
+            }
+        }
+
+        async function getBilingual(text) {
+            if (!text) return { en: "", ar: "" };
+            // Auto-detect and translate to both languages
+            const en = await translateText(text, 'en');
+            const ar = await translateText(text, 'ar');
+            return { en, ar };
+        }
+
+        function getLangText(item, field) {
+            if (!item) return "";
+            // Check for bilingual fields first (e.g., name_en, name_ar)
+            const langField = `${field}_${currentLang}`;
+            if (item[langField]) return item[langField];
+            // Fallback to original field (e.g., name)
+            return item[field] || "";
+        }
+
         // --- Translations ---
         const translations = {
             en: {
@@ -1435,7 +1467,7 @@
                     card.innerHTML = `
                         <img src="${image}" class="item-image" alt="${name}">
                         <div class="item-info">
-                            <div class="item-name">${escapeHtml(name)}</div>
+                            <div class="item-name">${escapeHtml(getLangText(item, 'name'))}</div>
                             <div class="item-price">${price} ${currentLang === 'en' ? 'KD' : 'د.ك'}</div>
                         </div>
                         <div class="admin-actions">
@@ -1462,7 +1494,7 @@
                     card.innerHTML = `
                         <div class="news-content">
                             <div class="news-date">${timeAgo(n.timestamp)}</div>
-                            <h3>${escapeHtml(n.text)}</h3>
+                            <h3>${escapeHtml(getLangText(n, 'text'))}</h3>
                         </div>
                         <div class="admin-actions">
                              <button class="delete-btn" onclick="deleteNews('${n.id}')">
@@ -1619,45 +1651,70 @@
             render();
         }
 
-        function addItem() {
+        async function addItem() {
+            const btn = document.getElementById('add-item-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ...';
+            btn.disabled = true;
+
             const name = itemInput.value.trim();
             const price = priceInput.value.trim();
             const desc = document.getElementById('item-desc').value.trim();
             
+            if (!name || !price) {
+                alert(currentLang === 'en' ? 'Please fill name and price.' : 'يرجى ملء الاسم والسعر.');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                return;
+            }
+
+            // Translate dynamic content
+            const nameTrans = await getBilingual(name);
+            const descTrans = await getBilingual(desc);
+
             let beans = [];
             if (selectedCategory === 'coffee') {
                 const rows = document.querySelectorAll('#beans-container .bean-row');
-                rows.forEach(row => {
+                for (let row of rows) {
                     const bName = row.querySelector('.bean-input-name').value.trim();
                     const bNotes = row.querySelector('.bean-input-notes').value.trim();
-                    if (bName) beans.push({ name: bName, notes: bNotes });
-                });
+                    if (bName) {
+                        const bNameTrans = await getBilingual(bName);
+                        const bNotesTrans = await getBilingual(bNotes);
+                        beans.push({ 
+                            name_en: bNameTrans.en, name_ar: bNameTrans.ar,
+                            notes_en: bNotesTrans.en, notes_ar: bNotesTrans.ar
+                        });
+                    }
+                }
             }
 
-            if (name && price) {
-                const newItemRef = db.ref('items').push();
-                newItemRef.set({
-                    id: newItemRef.key,
-                    name: name,
-                    price: parseFloat(price).toFixed(3),
-                    category: selectedCategory,
-                    description: selectedCategory === 'sweet' ? desc : '',
-                    beans: selectedCategory === 'coffee' ? beans : [],
-                    image: selectedImageBase64
-                });
-                itemInput.value = '';
-                priceInput.value = '';
-                document.getElementById('item-desc').value = '';
-                document.getElementById('beans-container').innerHTML = `
-                    <div class="bean-row">
-                        <input type="text" class="bean-input-name" placeholder="${translations[currentLang].beanPlaceholder}">
-                        <input type="text" class="bean-input-notes" placeholder="${translations[currentLang].notesPlaceholder}">
-                    </div>
-                `;
-                resetUploadArea();
-            } else {
-                alert(currentLang === 'en' ? 'Please fill name and price.' : 'يرجى ملء الاسم والسعر.');
-            }
+            const newItemRef = db.ref('items').push();
+            newItemRef.set({
+                id: newItemRef.key,
+                name_en: nameTrans.en,
+                name_ar: nameTrans.ar,
+                price: parseFloat(price).toFixed(3),
+                category: selectedCategory,
+                description_en: selectedCategory === 'sweet' ? descTrans.en : '',
+                description_ar: selectedCategory === 'sweet' ? descTrans.ar : '',
+                beans: selectedCategory === 'coffee' ? beans : [],
+                image: selectedImageBase64
+            });
+
+            itemInput.value = '';
+            priceInput.value = '';
+            document.getElementById('item-desc').value = '';
+            document.getElementById('beans-container').innerHTML = `
+                <div class="bean-row">
+                    <input type="text" class="bean-input-name" placeholder="${translations[currentLang].beanPlaceholder}">
+                    <input type="text" class="bean-input-notes" placeholder="${translations[currentLang].notesPlaceholder}">
+                </div>
+            `;
+            resetUploadArea();
+            
+            btn.innerHTML = originalText;
+            btn.disabled = false;
         }
 
         window.addBeanRow = function(containerId, name = '', notes = '') {
@@ -1680,14 +1737,14 @@
 
             const t = translations[currentLang];
             document.getElementById('details-img').src = item.image || 'https://via.placeholder.com/400x300?text=FRAC';
-            document.getElementById('details-name').textContent = item.name;
+            document.getElementById('details-name').textContent = getLangText(item, 'name');
             document.getElementById('details-price').textContent = `${item.price} ${currentLang === 'en' ? 'KD' : 'د.ك'}`;
             
             const descEl = document.getElementById('details-desc');
             if (item.category === 'coffee') {
                 let beansHtml = `<div class="details-section-title">🫘 ${t.beansLabel}</div>`;
                 if (item.beans && item.beans.length > 0) {
-                    beansHtml += item.beans.map(b => `<div class="bean-display-item"><span class="bean-name">${escapeHtml(b.name)}</span><span class="bean-notes">${escapeHtml(b.notes)}</span></div>`).join('');
+                    beansHtml += item.beans.map(b => `<div class="bean-display-item"><span class="bean-name">${escapeHtml(getLangText(b, 'name'))}</span><span class="bean-notes">${escapeHtml(getLangText(b, 'notes'))}</span></div>`).join('');
                 } else {
                     beansHtml += `<div style="text-align:center; padding:20px; color:var(--text-muted);">${t.emptyItems}</div>`;
                 }
@@ -1700,7 +1757,7 @@
                 descEl.style.whiteSpace = 'normal';
             } else {
                 let sweetHtml = `<div class="details-section-title">🍰 ${t.itemDesc}</div>`;
-                sweetHtml += `<div>${escapeHtml(item.description || (currentLang === 'en' ? 'No details available.' : 'لا توجد تفاصيل متوفرة.'))}</div>`;
+                sweetHtml += `<div>${escapeHtml(getLangText(item, 'description') || (currentLang === 'en' ? 'No details available.' : 'لا توجد تفاصيل متوفرة.'))}</div>`;
                 descEl.innerHTML = sweetHtml;
                 descEl.style.background = 'var(--input-bg)';
                 descEl.style.padding = '25px';
@@ -1718,7 +1775,7 @@
             if (!item) return;
             
             editingItemId = id;
-            document.getElementById('edit-item-name').value = item.name;
+            document.getElementById('edit-item-name').value = getLangText(item, 'name');
             document.getElementById('edit-item-price').value = item.price;
             
             const editSweetArea = document.getElementById('edit-sweet-desc-area');
@@ -1730,14 +1787,14 @@
                 const container = document.getElementById('edit-beans-container');
                 container.innerHTML = '';
                 if (item.beans && item.beans.length > 0) {
-                    item.beans.forEach(b => addBeanRow('edit-beans-container', b.name, b.notes));
+                    item.beans.forEach(b => addBeanRow('edit-beans-container', getLangText(b, 'name'), getLangText(b, 'notes')));
                 } else {
                     addBeanRow('edit-beans-container');
                 }
             } else {
                 editSweetArea.style.display = 'block';
                 editCoffeeArea.style.display = 'none';
-                document.getElementById('edit-item-desc').value = item.description || '';
+                document.getElementById('edit-item-desc').value = getLangText(item, 'description') || '';
             }
             
             const editCats = document.querySelectorAll('#edit-category-selector .cat-option');
@@ -1751,52 +1808,83 @@
             toggleEditModal(true);
         };
 
-        document.getElementById('save-edit-btn').addEventListener('click', () => {
+        document.getElementById('save-edit-btn').addEventListener('click', async () => {
             if (!editingItemId) return;
             
+            const btn = document.getElementById('save-edit-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ...';
+            btn.disabled = true;
+
             const name = document.getElementById('edit-item-name').value.trim();
             const price = document.getElementById('edit-item-price').value.trim();
             const category = document.querySelector('#edit-category-selector .cat-option.selected').dataset.value;
             const image = document.getElementById('edit-image-preview').src;
 
+            const nameTrans = await getBilingual(name);
+
             let beans = [];
-            let description = '';
+            let description_en = '';
+            let description_ar = '';
 
             if (category === 'coffee') {
                 const rows = document.querySelectorAll('#edit-beans-container .bean-row');
-                rows.forEach(row => {
+                for (let row of rows) {
                     const bName = row.querySelector('.bean-input-name').value.trim();
                     const bNotes = row.querySelector('.bean-input-notes').value.trim();
-                    if (bName) beans.push({ name: bName, notes: bNotes });
-                });
+                    if (bName) {
+                        const bNameTrans = await getBilingual(bName);
+                        const bNotesTrans = await getBilingual(bNotes);
+                        beans.push({ 
+                            name_en: bNameTrans.en, name_ar: bNameTrans.ar,
+                            notes_en: bNotesTrans.en, notes_ar: bNotesTrans.ar
+                        });
+                    }
+                }
             } else {
-                description = document.getElementById('edit-item-desc').value.trim();
+                const desc = document.getElementById('edit-item-desc').value.trim();
+                const descTrans = await getBilingual(desc);
+                description_en = descTrans.en;
+                description_ar = descTrans.ar;
             }
 
             if (name && price) {
                 db.ref('items/' + editingItemId).update({
-                    name: name,
+                    name_en: nameTrans.en,
+                    name_ar: nameTrans.ar,
                     price: parseFloat(price).toFixed(3),
                     category: category,
-                    description: description,
+                    description_en: description_en,
+                    description_ar: description_ar,
                     beans: beans,
                     image: image
                 });
                 toggleEditModal(false);
             }
+            btn.innerHTML = originalText;
+            btn.disabled = false;
         });
 
-        function addNews() {
+        async function addNews() {
+            const btn = document.getElementById('add-news-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            btn.disabled = true;
+
             const val = newsInput.value.trim();
             if (val) {
+                const trans = await getBilingual(val);
                 const newNewsRef = db.ref('news').push();
                 newNewsRef.set({
                     id: newNewsRef.key,
-                    text: val,
+                    text_en: trans.en,
+                    text_ar: trans.ar,
                     timestamp: Date.now()
                 });
                 newsInput.value = '';
             }
+            btn.innerHTML = originalText;
+            btn.disabled = false;
         }
 
         window.deleteItem = function(id) {
