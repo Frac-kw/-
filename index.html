@@ -296,7 +296,73 @@
             font-size: 0.85rem;
         }
 
-        /* --- Sections --- */
+        .bean-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .bean-row input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 10px;
+            background: var(--input-bg);
+            border: none;
+            color: var(--text-main);
+            font-size: 0.85rem;
+        }
+
+        .add-bean-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .remove-bean-btn {
+            background: #ff7675;
+            color: white;
+            border: none;
+            width: 40px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .bean-display-item {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(27, 67, 50, 0.05);
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            border-right: 4px solid var(--accent-color);
+            text-align: right;
+        }
+
+        body.rtl .bean-display-item {
+            border-right: 4px solid var(--accent-color);
+            border-left: none;
+        }
+
+        .bean-name {
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .bean-notes {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* --- Animations --- */
         .section-header {
             display: flex;
             align-items: center;
@@ -709,6 +775,158 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* --- Details Modal --- */
+        #details-modal .modal-content {
+            max-width: 500px;
+            padding: 0;
+            overflow: hidden;
+            border-radius: 28px;
+        }
+
+        .details-hero {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .details-body {
+            padding: 25px;
+            text-align: center;
+            background: var(--card-bg);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .details-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+
+        .details-price {
+            display: inline-block;
+            padding: 5px 14px;
+            background: rgba(212, 175, 55, 0.12);
+            color: var(--gold-color);
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .details-section-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--accent-color);
+            margin-bottom: 8px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* Evening Theme Specific Adjustments */
+        [data-theme="evening"] .details-section-title {
+            color: #52b788; /* Brighter green for dark mode */
+        }
+
+        [data-theme="evening"] .details-section-title::before, 
+        [data-theme="evening"] .details-section-title::after {
+            background: linear-gradient(to right, transparent, #52b788, transparent);
+            opacity: 0.5;
+        }
+
+        .details-section-title::before, .details-section-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--accent-color), transparent);
+            opacity: 0.3;
+        }
+
+        .details-desc {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            line-height: 1.7;
+            background: var(--input-bg);
+            padding: 25px;
+            border-radius: 20px;
+            margin-top: 10px;
+            white-space: pre-wrap;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.03);
+            text-align: inherit;
+        }
+
+        .bean-display-item {
+            display: flex;
+            flex-direction: column;
+            background: rgba(27, 67, 50, 0.08);
+            padding: 10px 16px;
+            border-radius: 12px;
+            margin-bottom: 6px;
+            border-right: 3px solid var(--accent-color);
+            text-align: right;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        [data-theme="evening"] .bean-display-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-right-color: #52b788;
+        }
+
+        body.rtl .bean-display-item {
+            text-align: right;
+            border-right: 3px solid var(--accent-color);
+        }
+
+        body:not(.rtl) .bean-display-item {
+            text-align: left;
+            border-right: none;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .bean-display-item:hover {
+            transform: translateX(-5px);
+            background: rgba(27, 67, 50, 0.05);
+        }
+
+        body:not(.rtl) .bean-display-item:hover {
+            transform: translateX(5px);
+        }
+
+        .bean-name {
+            font-weight: 800;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .bean-notes {
+            color: var(--accent-color);
+            filter: brightness(0.8);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        [data-theme="evening"] .bean-notes {
+            color: #74c69d;
+            filter: brightness(1.2); /* Make notes pop in dark mode */
+        }
+
+        .close-details-btn {
+            margin-top: 25px;
+            width: 100%;
+        }
+
         /* --- Mobile Optimizations --- */
         @media (max-width: 480px) {
             .container { padding: 0 15px; }
@@ -782,10 +1000,10 @@
                 <a href="https://www.google.com/maps/place/FRAC+%7C+%D9%81%D8%B1%D8%A7%D9%83%E2%80%AD/@29.0871452,48.0788365,17z/data=!3m1!4b1!4m6!3m5!1s0x3fcfa7f4a3125ce1:0x201965e032ba9cf!8m2!3d29.0871452!4d48.0788365!16s%2Fg%2F11y0cyw4zb?entry=ttu&g_ep=EgoyMDI2MDQyNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="icon-btn location" title="Location">
                     <i class="fas fa-map-marker-alt"></i>
                 </a>
-                <a href="https://www.tiktok.com/@frac.kw?_r=1&_t=ZS-95x3IGUo1JJ" target="_blank" class="icon-btn tiktok" title="TikTok">
+                <a href="https://www.tiktok.com/@frac.kw" target="_blank" class="icon-btn tiktok" title="TikTok">
                     <i class="fab fa-tiktok"></i>
                 </a>
-                <a href="https://www.instagram.com/frac.kw?igsh=MXV1anZ5eHFhZTc5eQ==" target="_blank" class="icon-btn instagram" title="Instagram">
+                <a href="https://www.instagram.com/frac.kw/" target="_blank" class="icon-btn instagram" title="Instagram">
                     <i class="fab fa-instagram"></i>
                 </a>
             </div>
@@ -823,6 +1041,22 @@
                             <div class="cat-option selected" data-value="coffee" id="cat-coffee">☕ Coffee</div>
                             <div class="cat-option" data-value="sweet" id="cat-sweet">🍰 Sweet</div>
                         </div>
+                    </div>
+                    <div class="admin-form-group" id="sweet-desc-group" style="display:none;">
+                        <label id="label-item-desc">Description</label>
+                        <textarea id="item-desc" placeholder="Sweet description..." style="width:100%; height:80px; border-radius:12px; padding:10px; background:var(--input-bg); border:none; color:var(--text-main); font-family:inherit;"></textarea>
+                    </div>
+                    <div class="admin-form-group" id="coffee-beans-group">
+                        <label id="label-coffee-beans">Available Beans & Notes</label>
+                        <div id="beans-container">
+                            <div class="bean-row">
+                                <input type="text" class="bean-input-name" placeholder="Bean (e.g. Ethiopia)">
+                                <input type="text" class="bean-input-notes" placeholder="Notes (e.g. Berry, Choco)">
+                            </div>
+                        </div>
+                        <button type="button" class="add-bean-btn" onclick="addBeanRow('beans-container')">
+                            <i class="fas fa-plus"></i> <span id="btn-add-bean">Add Bean Type</span>
+                        </button>
                     </div>
                     <div class="admin-form-group">
                         <label id="label-item-image">Item Image</label>
@@ -889,6 +1123,15 @@
             <div class="admin-form-group">
                 <input type="text" id="edit-item-name" placeholder="Name">
                 <input type="number" id="edit-item-price" placeholder="Price">
+                <div id="edit-sweet-desc-area" style="display:none;">
+                    <textarea id="edit-item-desc" placeholder="Description" style="width:100%; height:80px; border-radius:12px; padding:10px; background:var(--input-bg); border:none; color:var(--text-main); font-family:inherit; margin:10px 0;"></textarea>
+                </div>
+                <div id="edit-coffee-beans-area">
+                    <div id="edit-beans-container" style="margin: 10px 0;"></div>
+                    <button type="button" class="add-bean-btn" onclick="addBeanRow('edit-beans-container')" style="width:100%;">
+                        <i class="fas fa-plus"></i> <span class="trans-add-bean">Add Bean Type</span>
+                    </button>
+                </div>
                 <div class="category-select" id="edit-category-selector">
                     <div class="cat-option" data-value="coffee">☕</div>
                     <div class="cat-option" data-value="sweet">🍰</div>
@@ -904,7 +1147,18 @@
         </div>
     </div>
 
-    <!-- Login Modal -->
+    <!-- Details Modal -->
+    <div class="modal-overlay" id="details-modal">
+        <div class="modal-content">
+            <img id="details-img" src="" class="details-hero">
+            <div class="details-body">
+                <div id="details-name" class="details-name">Item Name</div>
+                <div id="details-price" class="details-price">0.000 KD</div>
+                <div id="details-desc" class="details-desc">Description goes here...</div>
+                <button class="primary-btn close-details-btn" onclick="toggleDetailsModal(false)" id="btn-close-details">Close</button>
+            </div>
+        </div>
+    </div>
     <div class="modal-overlay" id="login-modal">
         <div class="modal-content">
             <h2 id="login-modal-title">Owner Login</h2>
@@ -960,8 +1214,14 @@
                 category: "Category",
                 coffee: "☕ Coffee",
                 sweet: "🍰 Sweet",
+                itemDesc: "Description",
+                beansLabel: "Available Beans & Notes",
+                addBean: "Add Bean Type",
+                beanPlaceholder: "Bean (e.g. Ethiopia)",
+                notesPlaceholder: "Notes (e.g. Berry, Choco)",
                 editItem: "Edit Item",
-                saveChanges: "Save Changes"
+                saveChanges: "Save Changes",
+                close: "Close"
             },
             ar: {
                 heroTitle: "قهوة حقيقية بمذاقها الأصيل | Real Authentic Coffee",
@@ -979,6 +1239,11 @@
                 addNews: "إضافة الخبر",
                 itemName: "اسم الصنف",
                 itemPrice: "السعر (د.ك)",
+                itemDesc: "الوصف",
+                beansLabel: "أنواع البن المتوفرة والإيحاءات",
+                addBean: "إضافة نوع بن",
+                beanPlaceholder: "نوع البن (مثلاً: أثيوبي)",
+                notesPlaceholder: "الإيحاءات (مثلاً: كراميل، فواكه)",
                 itemImage: "صورة الصنف",
                 uploadText: "اسحب الصورة هنا أو اضغط للرفع",
                 login: "دخول المالك",
@@ -1003,7 +1268,8 @@
                 coffee: "☕ قهوة",
                 sweet: "🍰 سويت",
                 editItem: "تعديل المنتج",
-                saveChanges: "حفظ التعديلات"
+                saveChanges: "حفظ التعديلات",
+                close: "إغلاق"
             }
         };
 
@@ -1048,6 +1314,7 @@
         const adminPanel = document.getElementById('admin-panel');
         const loginModal = document.getElementById('login-modal');
         const editModal = document.getElementById('edit-modal');
+        const detailsModal = document.getElementById('details-modal');
         const loginForm = document.getElementById('login-form');
         const loginError = document.getElementById('login-error');
         
@@ -1104,6 +1371,44 @@
             });
         }
 
+        function timeAgo(timestamp) {
+            if (!timestamp) return currentLang === 'en' ? 'Recently' : 'منذ قليل';
+            
+            const now = Date.now();
+            const diff = now - timestamp;
+            const seconds = Math.floor(diff / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+
+            if (currentLang === 'en') {
+                if (days > 0) return days === 1 ? 'Yesterday' : `${days} days ago`;
+                if (hours > 0) return `${hours} hours ago`;
+                if (minutes > 0) return `${minutes} minutes ago`;
+                return 'Just now';
+            } else {
+                if (days > 0) {
+                    if (days === 1) return 'أمس';
+                    if (days === 2) return 'منذ يومين';
+                    if (days <= 10) return `منذ ${days} أيام`;
+                    return `منذ ${days} يوم`;
+                }
+                if (hours > 0) {
+                    if (hours === 1) return 'منذ ساعة';
+                    if (hours === 2) return 'منذ ساعتين';
+                    if (hours <= 10) return `منذ ${hours} ساعات`;
+                    return `منذ ${hours} ساعة`;
+                }
+                if (minutes > 0) {
+                    if (minutes === 1) return 'منذ دقيقة';
+                    if (minutes === 2) return 'منذ دقيقتين';
+                    if (minutes <= 10) return `منذ ${minutes} دقائق`;
+                    return `منذ ${minutes} دقيقة`;
+                }
+                return 'الآن';
+            }
+        }
+
         function render() {
             const t = translations[currentLang];
 
@@ -1122,6 +1427,11 @@
 
                     const card = document.createElement('div');
                     card.className = `item-card ${isLoggedIn ? 'is-admin' : ''}`;
+                    card.onclick = (e) => {
+                        // Don't open details if clicking admin buttons
+                        if (e.target.closest('.admin-actions')) return;
+                        openDetailsModal(itemKey);
+                    };
                     card.innerHTML = `
                         <img src="${image}" class="item-image" alt="${name}">
                         <div class="item-info">
@@ -1151,7 +1461,7 @@
                     card.className = `news-card ${isLoggedIn ? 'is-admin' : ''}`;
                     card.innerHTML = `
                         <div class="news-content">
-                            <div class="news-date">${currentLang === 'en' ? 'Today' : 'اليوم'}</div>
+                            <div class="news-date">${timeAgo(n.timestamp)}</div>
                             <h3>${escapeHtml(n.text)}</h3>
                         </div>
                         <div class="admin-actions">
@@ -1199,6 +1509,15 @@
             document.getElementById('label-item-name').textContent = t.itemName;
             document.getElementById('label-item-price').textContent = t.itemPrice;
             document.getElementById('label-item-category').textContent = t.category;
+            document.getElementById('label-item-desc').textContent = t.itemDesc;
+            document.getElementById('item-desc').placeholder = t.itemDesc;
+            document.getElementById('label-coffee-beans').textContent = t.beansLabel;
+            document.getElementById('btn-add-bean').textContent = t.addBean;
+            document.querySelectorAll('.trans-add-bean').forEach(el => el.textContent = t.addBean);
+            
+            document.querySelectorAll('.bean-input-name').forEach(el => el.placeholder = t.beanPlaceholder);
+            document.querySelectorAll('.bean-input-notes').forEach(el => el.placeholder = t.notesPlaceholder);
+            
             document.getElementById('label-item-image').textContent = t.itemImage;
             document.getElementById('cat-coffee').textContent = t.coffee;
             document.getElementById('cat-sweet').textContent = t.sweet;
@@ -1206,7 +1525,9 @@
             document.getElementById('btn-add-item').textContent = t.addItem;
             
             document.getElementById('edit-modal-title').textContent = t.editItem;
+            document.getElementById('edit-item-desc').placeholder = t.itemDesc;
             document.getElementById('save-edit-btn').textContent = t.saveChanges;
+            document.getElementById('btn-close-details').textContent = t.close;
             
             document.getElementById('admin-news-title').textContent = t.addLatestNews;
             document.getElementById('btn-add-news').textContent = t.addNews;
@@ -1239,6 +1560,10 @@
         function toggleEditModal(show) {
             editModal.classList.toggle('active', show);
             if(!show) editingItemId = null;
+        }
+
+        function toggleDetailsModal(show) {
+            detailsModal.classList.toggle('active', show);
         }
 
         // --- Image Handling ---
@@ -1297,7 +1622,18 @@
         function addItem() {
             const name = itemInput.value.trim();
             const price = priceInput.value.trim();
+            const desc = document.getElementById('item-desc').value.trim();
             
+            let beans = [];
+            if (selectedCategory === 'coffee') {
+                const rows = document.querySelectorAll('#beans-container .bean-row');
+                rows.forEach(row => {
+                    const bName = row.querySelector('.bean-input-name').value.trim();
+                    const bNotes = row.querySelector('.bean-input-notes').value.trim();
+                    if (bName) beans.push({ name: bName, notes: bNotes });
+                });
+            }
+
             if (name && price) {
                 const newItemRef = db.ref('items').push();
                 newItemRef.set({
@@ -1305,15 +1641,77 @@
                     name: name,
                     price: parseFloat(price).toFixed(3),
                     category: selectedCategory,
+                    description: selectedCategory === 'sweet' ? desc : '',
+                    beans: selectedCategory === 'coffee' ? beans : [],
                     image: selectedImageBase64
                 });
                 itemInput.value = '';
                 priceInput.value = '';
+                document.getElementById('item-desc').value = '';
+                document.getElementById('beans-container').innerHTML = `
+                    <div class="bean-row">
+                        <input type="text" class="bean-input-name" placeholder="${translations[currentLang].beanPlaceholder}">
+                        <input type="text" class="bean-input-notes" placeholder="${translations[currentLang].notesPlaceholder}">
+                    </div>
+                `;
                 resetUploadArea();
             } else {
                 alert(currentLang === 'en' ? 'Please fill name and price.' : 'يرجى ملء الاسم والسعر.');
             }
         }
+
+        window.addBeanRow = function(containerId, name = '', notes = '') {
+            const container = document.getElementById(containerId);
+            const row = document.createElement('div');
+            row.className = 'bean-row';
+            row.innerHTML = `
+                <input type="text" class="bean-input-name" placeholder="${translations[currentLang].beanPlaceholder}" value="${name}">
+                <input type="text" class="bean-input-notes" placeholder="${translations[currentLang].notesPlaceholder}" value="${notes}">
+                <button type="button" class="remove-bean-btn" onclick="this.parentElement.remove()">
+                    <i class="fas fa-minus"></i>
+                </button>
+            `;
+            container.appendChild(row);
+        };
+
+        window.openDetailsModal = function(id) {
+            const item = items.find(i => i.id === id);
+            if (!item) return;
+
+            const t = translations[currentLang];
+            document.getElementById('details-img').src = item.image || 'https://via.placeholder.com/400x300?text=FRAC';
+            document.getElementById('details-name').textContent = item.name;
+            document.getElementById('details-price').textContent = `${item.price} ${currentLang === 'en' ? 'KD' : 'د.ك'}`;
+            
+            const descEl = document.getElementById('details-desc');
+            if (item.category === 'coffee') {
+                let beansHtml = `<div class="details-section-title">🫘 ${t.beansLabel}</div>`;
+                if (item.beans && item.beans.length > 0) {
+                    beansHtml += item.beans.map(b => `<div class="bean-display-item"><span class="bean-name">${escapeHtml(b.name)}</span><span class="bean-notes">${escapeHtml(b.notes)}</span></div>`).join('');
+                } else {
+                    beansHtml += `<div style="text-align:center; padding:20px; color:var(--text-muted);">${t.emptyItems}</div>`;
+                }
+                descEl.innerHTML = beansHtml;
+                descEl.style.background = 'transparent';
+                descEl.style.padding = '0';
+                descEl.style.boxShadow = 'none';
+                descEl.style.border = 'none';
+                descEl.style.marginTop = '0';
+                descEl.style.whiteSpace = 'normal';
+            } else {
+                let sweetHtml = `<div class="details-section-title">🍰 ${t.itemDesc}</div>`;
+                sweetHtml += `<div>${escapeHtml(item.description || (currentLang === 'en' ? 'No details available.' : 'لا توجد تفاصيل متوفرة.'))}</div>`;
+                descEl.innerHTML = sweetHtml;
+                descEl.style.background = 'var(--input-bg)';
+                descEl.style.padding = '25px';
+                descEl.style.boxShadow = 'inset 0 2px 10px rgba(0,0,0,0.05)';
+                descEl.style.border = '1px solid rgba(0,0,0,0.03)';
+                descEl.style.marginTop = '10px';
+                descEl.style.whiteSpace = 'pre-wrap';
+            }
+            
+            toggleDetailsModal(true);
+        };
 
         window.openEditModal = function(id) {
             const item = items.find(i => i.id === id);
@@ -1322,6 +1720,25 @@
             editingItemId = id;
             document.getElementById('edit-item-name').value = item.name;
             document.getElementById('edit-item-price').value = item.price;
+            
+            const editSweetArea = document.getElementById('edit-sweet-desc-area');
+            const editCoffeeArea = document.getElementById('edit-coffee-beans-area');
+            
+            if (item.category === 'coffee') {
+                editSweetArea.style.display = 'none';
+                editCoffeeArea.style.display = 'block';
+                const container = document.getElementById('edit-beans-container');
+                container.innerHTML = '';
+                if (item.beans && item.beans.length > 0) {
+                    item.beans.forEach(b => addBeanRow('edit-beans-container', b.name, b.notes));
+                } else {
+                    addBeanRow('edit-beans-container');
+                }
+            } else {
+                editSweetArea.style.display = 'block';
+                editCoffeeArea.style.display = 'none';
+                document.getElementById('edit-item-desc').value = item.description || '';
+            }
             
             const editCats = document.querySelectorAll('#edit-category-selector .cat-option');
             editCats.forEach(opt => {
@@ -1342,11 +1759,27 @@
             const category = document.querySelector('#edit-category-selector .cat-option.selected').dataset.value;
             const image = document.getElementById('edit-image-preview').src;
 
+            let beans = [];
+            let description = '';
+
+            if (category === 'coffee') {
+                const rows = document.querySelectorAll('#edit-beans-container .bean-row');
+                rows.forEach(row => {
+                    const bName = row.querySelector('.bean-input-name').value.trim();
+                    const bNotes = row.querySelector('.bean-input-notes').value.trim();
+                    if (bName) beans.push({ name: bName, notes: bNotes });
+                });
+            } else {
+                description = document.getElementById('edit-item-desc').value.trim();
+            }
+
             if (name && price) {
                 db.ref('items/' + editingItemId).update({
                     name: name,
                     price: parseFloat(price).toFixed(3),
                     category: category,
+                    description: description,
+                    beans: beans,
                     image: image
                 });
                 toggleEditModal(false);
@@ -1359,7 +1792,8 @@
                 const newNewsRef = db.ref('news').push();
                 newNewsRef.set({
                     id: newNewsRef.key,
-                    text: val
+                    text: val,
+                    timestamp: Date.now()
                 });
                 newsInput.value = '';
             }
@@ -1425,6 +1859,17 @@
                     document.querySelectorAll('#category-selector .cat-option').forEach(o => o.classList.remove('selected'));
                     opt.classList.add('selected');
                     selectedCategory = opt.dataset.value;
+                    
+                    // Toggle form fields based on category
+                    const coffeeGroup = document.getElementById('coffee-beans-group');
+                    const sweetGroup = document.getElementById('sweet-desc-group');
+                    if (selectedCategory === 'coffee') {
+                        coffeeGroup.style.display = 'block';
+                        sweetGroup.style.display = 'none';
+                    } else {
+                        coffeeGroup.style.display = 'none';
+                        sweetGroup.style.display = 'block';
+                    }
                 });
             });
 
@@ -1432,6 +1877,17 @@
                 opt.addEventListener('click', () => {
                     document.querySelectorAll('#edit-category-selector .cat-option').forEach(o => o.classList.remove('selected'));
                     opt.classList.add('selected');
+                    
+                    // Toggle edit fields
+                    const coffeeArea = document.getElementById('edit-coffee-beans-area');
+                    const sweetArea = document.getElementById('edit-sweet-desc-area');
+                    if (opt.dataset.value === 'coffee') {
+                        coffeeArea.style.display = 'block';
+                        sweetArea.style.display = 'none';
+                    } else {
+                        coffeeArea.style.display = 'none';
+                        sweetArea.style.display = 'block';
+                    }
                 });
             });
 
