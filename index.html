@@ -2127,7 +2127,7 @@
             list.innerHTML = '';
             orderState = {};
 
-            const availableItems = items.length > 0 ? items : DEFAULT_ITEMS;
+            const availableItems = items;
             const t = translations[currentLang];
             
             availableItems.forEach(item => {
@@ -2216,7 +2216,8 @@
             
             let itemListText = "";
             selectedItems.forEach(([id, data]) => {
-                const item = items.find(i => (i.id || i.name) === id) || DEFAULT_ITEMS.find(i => i.name === id);
+                const item = items.find(i => (i.id || i.name) === id);
+                if (!item) return;
                 const name = getLangText(item, 'name');
                 let line = `• ${data.qty}x ${name}`;
                 if (data.bean) line += `\n   └ 🫘 ${data.bean}`;
