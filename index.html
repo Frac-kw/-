@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FRAC | Real Authentic Coffee</title>
-    <meta name="description" content="FRAC - Your destination for real authentic coffee. Explore our latest items and news.">
+    <meta name="description"
+        content="FRAC - Your destination for real authentic coffee. Explore our latest items and news.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Tajawal:wght@400;500;700&display=swap"
+        rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
-    
+
     <style>
         :root {
             /* Light Theme (Morning) */
@@ -23,7 +27,8 @@
             --card-bg: #ffffff;
             --text-main: #2d3436;
             --text-muted: #636e72;
-            --accent-color: #1b4332; /* Dark green from logo */
+            --accent-color: #1b4332;
+            /* Dark green from logo */
             --gold-color: #d4af37;
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             --glass-bg: rgba(255, 255, 255, 0.8);
@@ -117,7 +122,7 @@
 
         .action-btn {
             background: var(--card-bg);
-            border: 1px solid rgba(0,0,0,0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
             color: var(--text-main);
             padding: 10px 15px;
             border-radius: 12px;
@@ -127,18 +132,18 @@
             gap: 8px;
             font-weight: 500;
             transition: var(--transition);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
         .action-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             border-color: var(--accent-color);
         }
 
         .settings-btn {
             background: var(--card-bg);
-            border: 1px solid rgba(0,0,0,0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
             color: var(--text-main);
             width: 42px;
             height: 42px;
@@ -148,7 +153,7 @@
             justify-content: center;
             cursor: pointer;
             transition: var(--transition);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
         .settings-btn:hover {
@@ -156,7 +161,7 @@
             color: white;
             border-color: var(--accent-color);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .settings-btn:hover i {
@@ -415,12 +420,12 @@
             transition: var(--transition);
             position: relative;
             animation: fadeIn 0.5s ease forwards;
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .item-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
         }
 
         .item-image {
@@ -460,7 +465,7 @@
             width: 50px;
             height: 50px;
             border-radius: 15px;
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
             background: var(--card-bg);
             font-size: 1.4rem;
             cursor: pointer;
@@ -483,7 +488,8 @@
             transform: scale(1.1);
         }
 
-        .item-card .admin-actions, .news-card .admin-actions {
+        .item-card .admin-actions,
+        .news-card .admin-actions {
             position: absolute;
             top: 10px;
             right: 10px;
@@ -501,10 +507,12 @@
         }
 
         .news-card {
-            position: relative; /* Ensure actions are positioned relative to card */
+            position: relative;
+            /* Ensure actions are positioned relative to card */
         }
 
-        .edit-btn, .delete-btn {
+        .edit-btn,
+        .delete-btn {
             width: 35px;
             height: 35px;
             border-radius: 10px;
@@ -516,7 +524,7 @@
             border: none;
             transition: var(--transition);
             backdrop-filter: blur(5px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .edit-btn {
@@ -527,10 +535,12 @@
         .delete-btn {
             background: rgba(231, 76, 60, 0.9);
             color: white;
-            position: static; /* Reset from previous absolute */
+            position: static;
+            /* Reset from previous absolute */
         }
 
-        .edit-btn:hover, .delete-btn:hover {
+        .edit-btn:hover,
+        .delete-btn:hover {
             transform: scale(1.1);
             filter: brightness(1.2);
         }
@@ -599,7 +609,8 @@
             margin: 0;
         }
 
-        #image-preview, #edit-image-preview {
+        #image-preview,
+        #edit-image-preview {
             max-width: 100%;
             max-height: 100px;
             border-radius: 10px;
@@ -706,7 +717,7 @@
             padding: 25px;
             margin-bottom: 40px;
             box-shadow: var(--shadow);
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
             text-align: center;
             animation: fadeIn 0.5s ease forwards;
         }
@@ -714,7 +725,7 @@
         .info-hours {
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .info-hours h3 {
@@ -761,9 +772,17 @@
             box-shadow: 0 10px 20px rgba(27, 67, 50, 0.2);
         }
 
-        .icon-btn.tiktok:hover { background: #000; }
-        .icon-btn.instagram:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-        .icon-btn.location:hover { background: #4285F4; }
+        .icon-btn.tiktok:hover {
+            background: #000;
+        }
+
+        .icon-btn.instagram:hover {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
+
+        .icon-btn.location:hover {
+            background: #4285F4;
+        }
 
         .service-btn {
             width: 55px;
@@ -804,13 +823,27 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* --- Details Modal --- */
@@ -831,7 +864,7 @@
             padding: 25px;
             text-align: center;
             background: var(--card-bg);
-            border-top: 1px solid rgba(255,255,255,0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .details-name {
@@ -869,16 +902,18 @@
 
         /* Evening Theme Specific Adjustments */
         [data-theme="evening"] .details-section-title {
-            color: #52b788; /* Brighter green for dark mode */
+            color: #52b788;
+            /* Brighter green for dark mode */
         }
 
-        [data-theme="evening"] .details-section-title::before, 
+        [data-theme="evening"] .details-section-title::before,
         [data-theme="evening"] .details-section-title::after {
             background: linear-gradient(to right, transparent, #52b788, transparent);
             opacity: 0.5;
         }
 
-        .details-section-title::before, .details-section-title::after {
+        .details-section-title::before,
+        .details-section-title::after {
             content: "";
             flex: 1;
             height: 1px;
@@ -895,8 +930,8 @@
             border-radius: 20px;
             margin-top: 10px;
             white-space: pre-wrap;
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);
-            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.03);
             text-align: inherit;
         }
 
@@ -957,7 +992,8 @@
 
         [data-theme="evening"] .bean-notes {
             color: #74c69d;
-            filter: brightness(1.2); /* Make notes pop in dark mode */
+            filter: brightness(1.2);
+            /* Make notes pop in dark mode */
         }
 
         .close-details-btn {
@@ -967,29 +1003,96 @@
 
         /* --- Mobile Optimizations --- */
         @media (max-width: 480px) {
-            .container { padding: 0 15px; }
-            
-            .hero { padding: 30px 15px; margin-bottom: 25px; }
-            .hero h1 { font-size: 1.8rem; }
-            .hero p { font-size: 0.9rem; }
-            
-            .info-card { padding: 15px; margin-bottom: 25px; border-radius: 20px; }
-            .info-hours h3 { font-size: 0.9rem; }
-            .info-hours p { font-size: 0.75rem; }
-            .icon-btn { width: 45px; height: 45px; font-size: 1.1rem; border-radius: 14px; }
-            
-            .section-header h2 { font-size: 1.2rem; }
-            
-            .items-grid { gap: 15px; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
-            .item-card { border-radius: 18px; }
-            .item-image { height: 120px; }
-            .item-info { padding: 12px; }
-            .item-name { font-size: 0.9rem; }
-            .item-price { font-size: 0.85rem; }
-            
-            .news-card { padding: 12px 15px; border-radius: 15px; }
-            .news-content h3 { font-size: 0.9rem; }
-            .news-date { font-size: 0.7rem; }
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero {
+                padding: 30px 15px;
+                margin-bottom: 25px;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+            }
+
+            .info-card {
+                padding: 15px;
+                margin-bottom: 25px;
+                border-radius: 20px;
+            }
+
+            .info-hours h3 {
+                font-size: 0.9rem;
+            }
+
+            .info-hours p {
+                font-size: 0.75rem;
+            }
+
+            .icon-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+                border-radius: 14px;
+            }
+
+            .section-header h2 {
+                font-size: 1.2rem;
+            }
+
+            .items-grid {
+                gap: 15px;
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+
+            .item-card {
+                border-radius: 18px;
+            }
+
+            .item-image {
+                height: 120px;
+            }
+
+            .item-info {
+                padding: 12px;
+            }
+
+            .item-name {
+                font-size: 0.9rem;
+            }
+
+            .item-price {
+                font-size: 0.85rem;
+            }
+
+            .news-card {
+                padding: 12px 15px;
+                border-radius: 15px;
+            }
+
+            .news-content h3 {
+                font-size: 0.9rem;
+            }
+
+            .news-date {
+                font-size: 0.7rem;
+            }
+        }
+
+        /* Footer Style */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            margin-top: 40px;
+            transition: var(--transition);
         }
 
         /* Service Modal Specifics */
@@ -1028,6 +1131,7 @@
         .service-item-card .item-checkbox {
             width: 24px;
             height: 24px;
+            flex-shrink: 0;
             border-radius: 6px;
             border: 2px solid var(--text-muted);
             display: flex;
@@ -1056,6 +1160,8 @@
             flex: 1;
             font-weight: 700;
             font-size: 1rem;
+            word-break: break-word;
+            line-height: 1.3;
         }
 
         .qty-control {
@@ -1068,6 +1174,7 @@
             box-shadow: var(--shadow);
             opacity: 0.5;
             pointer-events: none;
+            flex-shrink: 0;
         }
 
         .service-item-card.selected .qty-control {
@@ -1100,29 +1207,78 @@
             flex-direction: column;
             gap: 10px;
             padding-top: 10px;
-            border-top: 1px dashed rgba(0,0,0,0.1);
+            border-top: 1px dashed rgba(0, 0, 0, 0.1);
         }
 
         .service-item-card.selected .service-item-details {
             display: flex;
         }
 
-        .service-select, .service-note {
+        .service-instance-row {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 15px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            margin-bottom: 10px;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .service-instance-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .remove-instance-btn {
+            color: #e74c3c;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 5px;
+        }
+
+        .add-instance-btn {
+            width: 100%;
+            padding: 10px;
+            border-radius: 12px;
+            border: 2px dashed var(--accent-color);
+            background: none;
+            color: var(--accent-color);
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: var(--transition);
+        }
+
+        .add-instance-btn:hover {
+            background: rgba(27, 67, 50, 0.05);
+        }
+
+        .service-select,
+        .service-note {
             width: 100%;
             padding: 10px;
             border-radius: 10px;
-            border: 1px solid rgba(0,0,0,0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
             background: var(--card-bg);
             color: var(--text-main);
             font-size: 0.85rem;
             outline: none;
         }
 
-        .service-select:focus, .service-note:focus {
+        .service-select:focus,
+        .service-note:focus {
             border-color: var(--accent-color);
         }
     </style>
 </head>
+
 <body data-theme="morning">
 
     <header>
@@ -1137,7 +1293,7 @@
                     <i class="fas fa-sun" id="theme-icon"></i>
                     <span id="theme-text" data-en="Morning" data-ar="صباحي">Morning</span>
                 </button>
-                
+
                 <!-- Language Toggle Button -->
                 <button class="action-btn" id="lang-toggle">
                     <i class="fas fa-globe"></i>
@@ -1165,16 +1321,19 @@
                 <p id="hours-weekend">Fri & Sat: 11:00 AM - 11:00 PM</p>
             </div>
             <div class="info-actions">
-                <a href="https://www.google.com/maps/place/FRAC+%7C+%D9%81%D8%B1%D8%A7%D9%83%E2%80%AD/@29.0871452,48.0788365,17z/data=!3m1!4b1!4m6!3m5!1s0x3fcfa7f4a3125ce1:0x201965e032ba9cf!8m2!3d29.0871452!4d48.0788365!16s%2Fg%2F11y0cyw4zb?entry=ttu&g_ep=EgoyMDI2MDQyNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="icon-btn location" title="Location">
+                <a href="https://www.google.com/maps/place/FRAC+%7C+%D9%81%D8%B1%D8%A7%D9%83%E2%80%AD/@29.0871452,48.0788365,17z/data=!3m1!4b1!4m6!3m5!1s0x3fcfa7f4a3125ce1:0x201965e032ba9cf!8m2!3d29.0871452!4d48.0788365!16s%2Fg%2F11y0cyw4zb?entry=ttu&g_ep=EgoyMDI2MDQyNi4wIKXMDSoASAFQAw%3D%3D"
+                    target="_blank" class="icon-btn location" title="Location">
                     <i class="fas fa-map-marker-alt"></i>
                 </a>
-                <button class="service-btn" id="service-request-btn" onclick="sendCarNotification()" title="Request Service">
+                <button class="service-btn" id="service-request-btn" onclick="sendCarNotification()"
+                    title="Request Service">
                     <span id="service-btn-icon">🚗</span>
                 </button>
                 <a href="https://www.tiktok.com/@frac.kw" target="_blank" class="icon-btn tiktok" title="TikTok">
                     <i class="fab fa-tiktok"></i>
                 </a>
-                <a href="https://www.instagram.com/frac.kw/" target="_blank" class="icon-btn instagram" title="Instagram">
+                <a href="https://www.instagram.com/frac.kw/" target="_blank" class="icon-btn instagram"
+                    title="Instagram">
                     <i class="fab fa-instagram"></i>
                 </a>
             </div>
@@ -1191,11 +1350,12 @@
                     <i class="fas fa-sign-out-alt"></i> <span id="logout-text">Logout</span>
                 </button>
             </div>
-            
+
             <div class="admin-grid">
                 <!-- Item Management -->
                 <div class="admin-section">
-                    <h4 style="margin-bottom: 15px; border-bottom: 1px solid var(--gold-color); padding-bottom: 5px;" id="admin-item-title">Add New Item</h4>
+                    <h4 style="margin-bottom: 15px; border-bottom: 1px solid var(--gold-color); padding-bottom: 5px;"
+                        id="admin-item-title">Add New Item</h4>
                     <div class="admin-row">
                         <div class="admin-form-group">
                             <label id="label-item-name">Item Name</label>
@@ -1215,7 +1375,8 @@
                     </div>
                     <div class="admin-form-group" id="sweet-desc-group" style="display:none;">
                         <label id="label-item-desc">Description</label>
-                        <textarea id="item-desc" placeholder="Sweet description..." style="width:100%; height:80px; border-radius:12px; padding:10px; background:var(--input-bg); border:none; color:var(--text-main); font-family:inherit;"></textarea>
+                        <textarea id="item-desc" placeholder="Sweet description..."
+                            style="width:100%; height:80px; border-radius:12px; padding:10px; background:var(--input-bg); border:none; color:var(--text-main); font-family:inherit;"></textarea>
                     </div>
                     <div class="admin-form-group" id="coffee-beans-group">
                         <label id="label-coffee-beans">Available Beans & Notes</label>
@@ -1245,7 +1406,8 @@
 
                 <!-- News Management -->
                 <div class="admin-section">
-                    <h4 style="margin-bottom: 15px; border-bottom: 1px solid var(--gold-color); padding-bottom: 5px;" id="admin-news-title">Add Latest News</h4>
+                    <h4 style="margin-bottom: 15px; border-bottom: 1px solid var(--gold-color); padding-bottom: 5px;"
+                        id="admin-news-title">Add Latest News</h4>
                     <div class="admin-input-group">
                         <input type="text" id="news-input" placeholder="e.g. New flavor alert!">
                         <button class="primary-btn" id="add-news-btn">
@@ -1273,7 +1435,7 @@
                 <i class="fas fa-utensils" style="color: var(--accent-color);"></i>
                 <h2 id="items-title">Our Items</h2>
             </div>
-            
+
             <!-- Filters -->
             <div class="filter-bar">
                 <button class="filter-btn" data-filter="all" title="All">📋</button>
@@ -1287,6 +1449,12 @@
         </section>
     </main>
 
+    <footer>
+        <div class="container">
+            <p id="footer-text">© 2026 FRAC. All Rights Reserved.</p>
+        </div>
+    </footer>
+
     <!-- Edit Modal -->
     <div class="modal-overlay" id="edit-modal">
         <div class="modal-content">
@@ -1295,11 +1463,13 @@
                 <input type="text" id="edit-item-name" placeholder="Name">
                 <input type="number" id="edit-item-price" placeholder="Price">
                 <div id="edit-sweet-desc-area" style="display:none;">
-                    <textarea id="edit-item-desc" placeholder="Description" style="width:100%; height:80px; border-radius:12px; padding:10px; background:var(--input-bg); border:none; color:var(--text-main); font-family:inherit; margin:10px 0;"></textarea>
+                    <textarea id="edit-item-desc" placeholder="Description"
+                        style="width:100%; height:80px; border-radius:12px; padding:10px; background:var(--input-bg); border:none; color:var(--text-main); font-family:inherit; margin:10px 0;"></textarea>
                 </div>
                 <div id="edit-coffee-beans-area">
                     <div id="edit-beans-container" style="margin: 10px 0;"></div>
-                    <button type="button" class="add-bean-btn" onclick="addBeanRow('edit-beans-container')" style="width:100%;">
+                    <button type="button" class="add-bean-btn" onclick="addBeanRow('edit-beans-container')"
+                        style="width:100%;">
                         <i class="fas fa-plus"></i> <span class="trans-add-bean">Add Bean Type</span>
                     </button>
                 </div>
@@ -1313,7 +1483,8 @@
                     <img id="edit-image-preview" alt="Preview" style="max-height: 60px;">
                 </div>
                 <button class="primary-btn" id="save-edit-btn">Save Changes</button>
-                <button class="primary-btn" style="background: #95a5a6;" onclick="toggleEditModal(false)">Cancel</button>
+                <button class="primary-btn" style="background: #95a5a6;"
+                    onclick="toggleEditModal(false)">Cancel</button>
             </div>
         </div>
     </div>
@@ -1326,7 +1497,8 @@
                 <div id="details-name" class="details-name">Item Name</div>
                 <div id="details-price" class="details-price">0.000 KD</div>
                 <div id="details-desc" class="details-desc">Description goes here...</div>
-                <button class="primary-btn close-details-btn" onclick="toggleDetailsModal(false)" id="btn-close-details">Close</button>
+                <button class="primary-btn close-details-btn" onclick="toggleDetailsModal(false)"
+                    id="btn-close-details">Close</button>
             </div>
         </div>
     </div>
@@ -1350,10 +1522,15 @@
             <div class="service-items-list" id="service-items-list">
                 <!-- Items will be injected here -->
             </div>
+            <div style="margin-bottom: 20px;">
+                <input type="tel" id="customer-phone" placeholder="Phone Number" 
+                    style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); background: var(--input-bg); color: var(--text-main);">
+            </div>
             <button class="primary-btn" id="submit-service-btn" style="width: 100%;" onclick="submitServiceOrder()">
                 <span id="submit-service-text">Done</span>
             </button>
-            <button class="primary-btn" style="background: #95a5a6; width: 100%; margin-top: 10px;" onclick="toggleServiceModal(false)">
+            <button class="primary-btn" style="background: #95a5a6; width: 100%; margin-top: 10px;"
+                onclick="toggleServiceModal(false)">
                 <span class="trans-cancel">Cancel</span>
             </button>
         </div>
@@ -1449,7 +1626,11 @@
                 noSelection: "Please select at least one item.",
                 beanSelect: "Select Bean Type",
                 notePlaceholder: "Special instructions (e.g. Extra hot, no sugar)...",
-                sweetNotePlaceholder: "Special instructions (e.g. Heat it up, extra sauce)..."
+                sweetNotePlaceholder: "Special instructions (e.g. Heat it up, extra sauce)...",
+                footerText: "Developed by Abdullah Al-Otaibi © 2026",
+                addAnother: "Add Another +",
+                remove: "Remove",
+                phonePlaceholder: "Phone Number"
             },
             ar: {
                 heroTitle: "قهوة حقيقية بمذاقها الأصيل | Real Authentic Coffee",
@@ -1506,7 +1687,11 @@
                 noSelection: "يرجى اختيار صنف واحد على الأقل.",
                 beanSelect: "اختر نوع البن",
                 notePlaceholder: "ملاحظات خاصة (مثلاً: حار جداً، بدون سكر)...",
-                sweetNotePlaceholder: "ملاحظات خاصة (مثلاً: تسخين، صوص إضافي)..."
+                sweetNotePlaceholder: "ملاحظات خاصة (مثلاً: تسخين، صوص إضافي)...",
+                footerText: "تم التطوير بواسطة عبدالله العتيبي © 2026",
+                addAnother: "إضافة آخر +",
+                remove: "حذف",
+                phonePlaceholder: "رقم الهاتف"
             }
         };
 
@@ -1528,13 +1713,6 @@
         const db = firebase.database();
 
         // --- Data & Initialization ---
-        const DEFAULT_ITEMS = [
-            { name: "☕ Espresso", price: "1.250", image: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=400&auto=format&fit=crop" },
-            { name: "🍵 Green Tea", price: "1.000", image: "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?q=80&w=400&auto=format&fit=crop" },
-            { name: "🥐 Butter Croissant", price: "1.500", image: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=400&auto=format&fit=crop" }
-        ];
-        const DEFAULT_NEWS = ["🎉 Grand opening!", "☀️ Morning coffee free refill", "🌙 Evening discount 15%"];
-
         let items = [];
         let news = [];
         let currentLang = localStorage.getItem('frac_lang') || 'en';
@@ -1554,24 +1732,24 @@
         const detailsModal = document.getElementById('details-modal');
         const loginForm = document.getElementById('login-form');
         const loginError = document.getElementById('login-error');
-        
+
         const themeToggle = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
         const themeText = document.getElementById('theme-text');
-        
+
         const langToggle = document.getElementById('lang-toggle');
         const langText = document.getElementById('lang-text');
-        
+
         const openLoginBtn = document.getElementById('open-login');
         const closeLoginBtn = document.getElementById('close-login');
         const logoutBtn = document.getElementById('logout-btn');
-        
+
         const addItemBtn = document.getElementById('add-item-btn');
         const addNewsBtn = document.getElementById('add-news-btn');
         const itemInput = document.getElementById('item-input');
         const priceInput = document.getElementById('price-input');
         const newsInput = document.getElementById('news-input');
-        
+
         const dropZone = document.getElementById('drop-zone');
         const fileInput = document.getElementById('file-input');
         const imagePreview = document.getElementById('image-preview');
@@ -1584,7 +1762,7 @@
             setTheme(currentTheme);
             setLanguage(currentLang);
             setupEventListeners();
-            
+
             // Listen for data from Firebase
             db.ref('items').on('value', (snapshot) => {
                 const data = snapshot.val();
@@ -1610,7 +1788,7 @@
 
         function timeAgo(timestamp) {
             if (!timestamp) return currentLang === 'en' ? 'Recently' : 'منذ قليل';
-            
+
             const now = Date.now();
             const diff = now - timestamp;
             const seconds = Math.floor(diff / 1000);
@@ -1718,7 +1896,7 @@
             currentTheme = theme;
             document.body.setAttribute('data-theme', theme);
             localStorage.setItem('frac_theme', theme);
-            
+
             if (theme === 'morning') {
                 themeIcon.className = 'fas fa-sun';
                 themeText.textContent = translations[currentLang].morning;
@@ -1732,16 +1910,16 @@
             currentLang = lang;
             localStorage.setItem('frac_lang', lang);
             document.body.classList.toggle('rtl', lang === 'ar');
-            
+
             const t = translations[lang];
-            
+
             document.getElementById('hero-title').textContent = t.heroTitle;
             document.getElementById('hero-desc').textContent = t.heroDesc;
             document.getElementById('news-title').textContent = t.newsTitle;
             document.getElementById('items-title').textContent = t.itemsTitle;
             document.getElementById('admin-panel-title').textContent = t.ownerPanel;
             document.getElementById('logout-text').textContent = t.logout;
-            
+
             document.getElementById('admin-item-title').textContent = t.addNewItem;
             document.getElementById('label-item-name').textContent = t.itemName;
             document.getElementById('label-item-price').textContent = t.itemPrice;
@@ -1751,24 +1929,24 @@
             document.getElementById('label-coffee-beans').textContent = t.beansLabel;
             document.getElementById('btn-add-bean').textContent = t.addBean;
             document.querySelectorAll('.trans-add-bean').forEach(el => el.textContent = t.addBean);
-            
+
             document.querySelectorAll('.bean-input-name').forEach(el => el.placeholder = t.beanPlaceholder);
             document.querySelectorAll('.bean-input-notes').forEach(el => el.placeholder = t.notesPlaceholder);
-            
+
             document.getElementById('label-item-image').textContent = t.itemImage;
             document.getElementById('cat-coffee').textContent = t.coffee;
             document.getElementById('cat-sweet').textContent = t.sweet;
             document.getElementById('upload-text').textContent = t.uploadText;
             document.getElementById('btn-add-item').textContent = t.addItem;
-            
+
             document.getElementById('edit-modal-title').textContent = t.editItem;
             document.getElementById('edit-item-desc').placeholder = t.itemDesc;
             document.getElementById('save-edit-btn').textContent = t.saveChanges;
             document.getElementById('btn-close-details').textContent = t.close;
-            
+
             document.getElementById('admin-news-title').textContent = t.addLatestNews;
             document.getElementById('btn-add-news').textContent = t.addNews;
-            
+
             document.getElementById('login-modal-title').textContent = t.login;
             document.getElementById('username').placeholder = t.userPlaceholder;
             document.getElementById('password').placeholder = t.passPlaceholder;
@@ -1776,17 +1954,19 @@
             document.getElementById('close-login').textContent = t.cancel;
             document.querySelectorAll('.trans-cancel').forEach(el => el.textContent = t.cancel);
             document.getElementById('login-error').textContent = t.errorMsg;
-            
+
             document.getElementById('service-modal-title').textContent = t.selectOrder;
             document.getElementById('submit-service-text').textContent = t.done;
-            
+            document.getElementById('customer-phone').placeholder = t.phonePlaceholder;
+            document.getElementById('footer-text').textContent = t.footerText;
+
             langText.textContent = t.langText;
             themeText.textContent = t[currentTheme];
-            
+
             document.getElementById('hours-title').textContent = t.hoursTitle;
             document.getElementById('hours-daily').textContent = t.hoursDaily;
             document.getElementById('hours-weekend').textContent = t.hoursWeekend;
-            
+
             render();
         }
 
@@ -1800,7 +1980,7 @@
 
         function toggleEditModal(show) {
             editModal.classList.toggle('active', show);
-            if(!show) editingItemId = null;
+            if (!show) editingItemId = null;
         }
 
         function toggleDetailsModal(show) {
@@ -1877,7 +2057,7 @@
             const name = itemInput.value.trim();
             const price = priceInput.value.trim();
             const desc = document.getElementById('item-desc').value.trim();
-            
+
             if (!name || !price) {
                 alert(currentLang === 'en' ? 'Please fill name and price.' : 'يرجى ملء الاسم والسعر.');
                 btn.innerHTML = originalText;
@@ -1898,7 +2078,7 @@
                     if (bName) {
                         const bNameTrans = await getBilingual(bName);
                         const bNotesTrans = await getBilingual(bNotes);
-                        beans.push({ 
+                        beans.push({
                             name_en: bNameTrans.en, name_ar: bNameTrans.ar,
                             notes_en: bNotesTrans.en, notes_ar: bNotesTrans.ar
                         });
@@ -1929,12 +2109,12 @@
                 </div>
             `;
             resetUploadArea();
-            
+
             btn.innerHTML = originalText;
             btn.disabled = false;
         }
 
-        window.addBeanRow = function(containerId, name = '', notes = '') {
+        window.addBeanRow = function (containerId, name = '', notes = '') {
             const container = document.getElementById(containerId);
             const row = document.createElement('div');
             row.className = 'bean-row';
@@ -1948,7 +2128,7 @@
             container.appendChild(row);
         };
 
-        window.openDetailsModal = function(id) {
+        window.openDetailsModal = function (id) {
             const item = items.find(i => i.id === id);
             if (!item) return;
 
@@ -1956,7 +2136,7 @@
             document.getElementById('details-img').src = item.image || 'https://via.placeholder.com/400x300?text=FRAC';
             document.getElementById('details-name').textContent = getLangText(item, 'name');
             document.getElementById('details-price').textContent = `${item.price} ${currentLang === 'en' ? 'KD' : 'د.ك'}`;
-            
+
             const descEl = document.getElementById('details-desc');
             if (item.category === 'coffee') {
                 let beansHtml = `<div class="details-section-title">🫘 ${t.beansLabel}</div>`;
@@ -1983,21 +2163,21 @@
                 descEl.style.marginTop = '10px';
                 descEl.style.whiteSpace = 'pre-wrap';
             }
-            
+
             toggleDetailsModal(true);
         };
 
-        window.openEditModal = function(id) {
+        window.openEditModal = function (id) {
             const item = items.find(i => i.id === id);
             if (!item) return;
-            
+
             editingItemId = id;
             document.getElementById('edit-item-name').value = getLangText(item, 'name');
             document.getElementById('edit-item-price').value = item.price;
-            
+
             const editSweetArea = document.getElementById('edit-sweet-desc-area');
             const editCoffeeArea = document.getElementById('edit-coffee-beans-area');
-            
+
             if (item.category === 'coffee') {
                 editSweetArea.style.display = 'none';
                 editCoffeeArea.style.display = 'block';
@@ -2013,21 +2193,21 @@
                 editCoffeeArea.style.display = 'none';
                 document.getElementById('edit-item-desc').value = getLangText(item, 'description') || '';
             }
-            
+
             const editCats = document.querySelectorAll('#edit-category-selector .cat-option');
             editCats.forEach(opt => {
                 opt.classList.toggle('selected', opt.dataset.value === item.category);
             });
-            
+
             document.getElementById('edit-image-preview').src = item.image || '';
             document.getElementById('edit-image-preview').style.display = item.image ? 'block' : 'none';
-            
+
             toggleEditModal(true);
         };
 
         document.getElementById('save-edit-btn').addEventListener('click', async () => {
             if (!editingItemId) return;
-            
+
             const btn = document.getElementById('save-edit-btn');
             const originalText = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ...';
@@ -2052,7 +2232,7 @@
                     if (bName) {
                         const bNameTrans = await getBilingual(bName);
                         const bNotesTrans = await getBilingual(bNotes);
-                        beans.push({ 
+                        beans.push({
                             name_en: bNameTrans.en, name_ar: bNameTrans.ar,
                             notes_en: bNotesTrans.en, notes_ar: bNotesTrans.ar
                         });
@@ -2104,14 +2284,14 @@
             btn.disabled = false;
         }
 
-        window.deleteItem = function(id) {
-            if(confirm(currentLang === 'en' ? 'Delete this item?' : 'هل تريد حذف هذا الصنف؟')) {
+        window.deleteItem = function (id) {
+            if (confirm(currentLang === 'en' ? 'Delete this item?' : 'هل تريد حذف هذا الصنف؟')) {
                 db.ref('items/' + id).remove();
             }
         };
 
-        window.deleteNews = function(id) {
-            if(confirm(currentLang === 'en' ? 'Delete this news?' : 'هل تريد حذف هذا الخبر؟')) {
+        window.deleteNews = function (id) {
+            if (confirm(currentLang === 'en' ? 'Delete this news?' : 'هل تريد حذف هذا الخبر؟')) {
                 db.ref('news/' + id).remove();
             }
         };
@@ -2129,112 +2309,200 @@
 
             const availableItems = items;
             const t = translations[currentLang];
-            
+
             availableItems.forEach(item => {
                 const itemKey = item.id || item.name;
                 const name = getLangText(item, 'name');
-                const hasBeans = item.beans && item.beans.length > 0;
-                
-                orderState[itemKey] = {
-                    selected: false,
-                    qty: 1,
-                    bean: hasBeans ? getLangText(item.beans[0], 'name') : '',
-                    note: ''
-                };
+                const emoji = item.category === 'sweet' ? '🍰' : '☕';
+
+                orderState[itemKey] = [];
 
                 const card = document.createElement('div');
                 card.className = 'service-item-card';
                 card.id = `card-${itemKey}`;
-                
-                let beansHtml = '';
-                if (hasBeans) {
-                    beansHtml = `
-                        <select class="service-select" onchange="updateOrderState('${itemKey}', 'bean', this.value)">
-                            <option value="" disabled selected>${t.beanSelect}</option>
-                            ${item.beans.map(b => {
-                                const bName = getLangText(b, 'name');
-                                const bNotes = getLangText(b, 'notes');
-                                const label = bNotes ? `${bName} (${bNotes})` : bName;
-                                return `<option value="${label}">${label}</option>`;
-                            }).join('')}
-                        </select>
-                    `;
-                }
 
                 card.innerHTML = `
-                    <div class="service-item-top">
-                        <div class="item-checkbox" onclick="toggleOrderItem('${itemKey}')">
+                    <div class="service-item-top" onclick="toggleItemSelection('${itemKey}')">
+                        <div class="item-checkbox">
                             <i class="fas fa-check"></i>
                         </div>
-                        <div class="service-item-name" onclick="toggleOrderItem('${itemKey}')">${escapeHtml(name)}</div>
-                        <div class="qty-control">
-                            <button class="qty-btn" onclick="updateQty('${itemKey}', -1)">-</button>
-                            <span class="qty-val" id="qty-${itemKey}">1</span>
-                            <button class="qty-btn" onclick="updateQty('${itemKey}', 1)">+</button>
+                        <div class="service-item-name">
+                            ${emoji} ${escapeHtml(name)}
                         </div>
                     </div>
-                    <div class="service-item-details">
-                        ${beansHtml}
-                        <input type="text" class="service-note" placeholder="${item.category === 'sweet' ? t.sweetNotePlaceholder : t.notePlaceholder}" oninput="updateOrderState('${itemKey}', 'note', this.value)">
+                    <div class="service-item-details" id="details-${itemKey}">
+                        <div id="instances-${itemKey}"></div>
+                        <button class="add-instance-btn" onclick="addOrderInstance('${itemKey}')">
+                            ${t.addAnother}
+                        </button>
                     </div>
                 `;
                 list.appendChild(card);
             });
         }
 
-        window.toggleOrderItem = function(id) {
-            orderState[id].selected = !orderState[id].selected;
-            document.getElementById(`card-${id}`).classList.toggle('selected', orderState[id].selected);
+        window.toggleItemSelection = function (id) {
+            const card = document.getElementById(`card-${id}`);
+            const isSelected = !card.classList.contains('selected');
+
+            card.classList.toggle('selected', isSelected);
+
+            if (isSelected) {
+                if (orderState[id].length === 0) {
+                    addOrderInstance(id);
+                }
+            } else {
+                orderState[id] = [];
+                document.getElementById(`instances-${id}`).innerHTML = '';
+            }
         };
 
-        window.updateQty = function(id, delta) {
-            orderState[id].qty = Math.max(1, orderState[id].qty + delta);
-            document.getElementById(`qty-${id}`).textContent = orderState[id].qty;
+        window.addOrderInstance = function (id) {
+            const item = items.find(i => (i.id || i.name) === id);
+            if (!item) return;
+
+            const instanceId = Date.now() + Math.random();
+            const hasBeans = item.beans && item.beans.length > 0;
+            const t = translations[currentLang];
+
+            const newInstance = {
+                instanceId,
+                qty: 1,
+                bean: hasBeans ? `${getLangText(item.beans[0], 'name')}${item.beans[0].notes ? ` (${getLangText(item.beans[0], 'notes')})` : ''}` : '',
+                note: ''
+            };
+
+            orderState[id].push(newInstance);
+            renderInstances(id);
         };
 
-        window.updateOrderState = function(id, field, value) {
-            orderState[id][field] = value;
+        function renderInstances(itemId) {
+            const container = document.getElementById(`instances-${itemId}`);
+            const item = items.find(i => (i.id || i.name) === itemId);
+            const t = translations[currentLang];
+            container.innerHTML = '';
+
+            orderState[itemId].forEach((inst, index) => {
+                const row = document.createElement('div');
+                row.className = 'service-instance-row';
+
+                let beansHtml = '';
+                if (item.beans && item.beans.length > 0) {
+                    beansHtml = `
+                        <select class="service-select" onchange="updateInstanceField('${itemId}', ${index}, 'bean', this.value)">
+                            <option value="" disabled>${t.beanSelect}</option>
+                            ${item.beans.map(b => {
+                        const bName = getLangText(b, 'name');
+                        const bNotes = getLangText(b, 'notes');
+                        const label = bNotes ? `${bName} (${bNotes})` : bName;
+                        return `<option value="${label}" ${inst.bean === label ? 'selected' : ''}>${label}</option>`;
+                    }).join('')}
+                        </select>
+                    `;
+                }
+
+                row.innerHTML = `
+                    <div class="service-instance-header">
+                        <div class="qty-control" style="opacity:1; pointer-events:auto;">
+                            <button class="qty-btn" onclick="updateInstanceQty('${itemId}', ${index}, -1)">-</button>
+                            <span class="qty-val">${inst.qty}</span>
+                            <button class="qty-btn" onclick="updateInstanceQty('${itemId}', ${index}, 1)">+</button>
+                        </div>
+                        ${orderState[itemId].length > 1 ? `
+                            <button class="remove-instance-btn" onclick="removeOrderInstance('${itemId}', ${index})">
+                                <i class="fas fa-trash"></i> ${t.remove}
+                            </button>
+                        ` : ''}
+                    </div>
+                    ${beansHtml}
+                    <input type="text" class="service-note" 
+                        placeholder="${item.category === 'sweet' ? t.sweetNotePlaceholder : t.notePlaceholder}" 
+                        value="${inst.note}"
+                        oninput="updateInstanceField('${itemId}', ${index}, 'note', this.value)">
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        window.updateInstanceQty = function (itemId, index, delta) {
+            orderState[itemId][index].qty = Math.max(1, orderState[itemId][index].qty + delta);
+            renderInstances(itemId);
+        };
+
+        window.updateInstanceField = function (itemId, index, field, value) {
+            orderState[itemId][index][field] = value;
+        };
+
+        window.removeOrderInstance = function (itemId, index) {
+            orderState[itemId].splice(index, 1);
+            renderInstances(itemId);
         };
 
         async function submitServiceOrder() {
-            const selectedItems = Object.entries(orderState).filter(([id, data]) => data.selected);
-            
-            if (selectedItems.length === 0) {
-                alert(translations[currentLang].noSelection);
+            const btn = document.getElementById('submit-service-btn');
+            const btnText = document.getElementById('submit-service-text');
+            const phoneInput = document.getElementById('customer-phone');
+            const t = translations[currentLang];
+
+            const selectedEntries = Object.entries(orderState).filter(([id, instances]) => instances.length > 0);
+            if (selectedEntries.length === 0) {
+                alert(t.noSelection);
                 return;
             }
 
-            const btn = document.getElementById('submit-service-btn');
-            const btnText = document.getElementById('submit-service-text');
-            const t = translations[currentLang];
-            
+            const phone = phoneInput.value.trim();
+            if (!phone) {
+                alert(currentLang === 'en' ? "Please enter your phone number." : "يرجى إدخال رقم الهاتف.");
+                return;
+            }
+
             btn.disabled = true;
+            const originalText = btnText.textContent;
             btnText.textContent = t.sending;
+
+            // Increment Order Counter in Firebase
+            let orderNumber = 1;
+            try {
+                const counterRef = db.ref('order_counter');
+                const result = await counterRef.transaction((current) => {
+                    return (current || 0) + 1;
+                });
+                if (result.committed) {
+                    orderNumber = result.snapshot.val();
+                }
+            } catch (e) {
+                console.error("Counter error:", e);
+            }
 
             const botToken = "8616456074:AAF8-w9FY1rtMZTvJ4MZ4rCkFAmaocuxt-0";
             const chatId = "1000088471";
-            
+
             let itemListText = "";
-            selectedItems.forEach(([id, data]) => {
+            selectedEntries.forEach(([id, instances]) => {
                 const item = items.find(i => (i.id || i.name) === id);
                 if (!item) return;
                 const name = getLangText(item, 'name');
-                let line = `• ${data.qty}x ${name}`;
-                if (data.bean) line += `\n   └ 🫘 ${data.bean}`;
-                if (data.note) line += `\n   └ 📝 ${data.note}`;
-                itemListText += line + "\n";
+                const emoji = item.category === 'sweet' ? '🍰' : '☕';
+
+                instances.forEach(inst => {
+                    let line = `• ${inst.qty}x ${emoji} ${name}`;
+                    if (inst.bean) line += `\n   └ 🫘 ${inst.bean}`;
+                    if (inst.note) line += `\n   └ 📝 ${inst.note}`;
+                    itemListText += line + "\n";
+                });
             });
 
-            const message = `🔔 *New Order Received!*\n\n*Items:*\n${itemListText}\n_Customer is waiting outside._`;
-            
+            const message = `🔔 *New Order Received! [#${orderNumber}]*\n\n📱 *Phone:* ${phone}\n\n*Items:*\n${itemListText}\n_Customer is waiting outside._`;
+
             const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
-            
+
             try {
                 const response = await fetch(url);
                 const data = await response.json();
-                
+
                 if (data.ok) {
                     alert(t.successMsg);
+                    phoneInput.value = ""; // Clear phone after success
                     toggleServiceModal(false);
                 } else {
                     throw new Error("Failed to send order");
@@ -2264,12 +2532,12 @@
                 const nextTheme = currentTheme === 'morning' ? 'evening' : 'morning';
                 setTheme(nextTheme);
             });
-            
+
             langToggle.addEventListener('click', () => {
                 const nextLang = currentLang === 'en' ? 'ar' : 'en';
                 setLanguage(nextLang);
             });
-            
+
             openLoginBtn.addEventListener('click', () => {
                 if (isLoggedIn) {
                     adminPanel.scrollIntoView({ behavior: 'smooth' });
@@ -2279,13 +2547,13 @@
                 }
             });
             closeLoginBtn.addEventListener('click', () => toggleModal(false));
-            
+
             loginForm.addEventListener('submit', handleLogin);
             logoutBtn.addEventListener('click', handleLogout);
-            
+
             addItemBtn.addEventListener('click', addItem);
             addNewsBtn.addEventListener('click', addNews);
-            
+
             // Drag and Drop
             dropZone.addEventListener('click', () => fileInput.click());
             fileInput.addEventListener('change', (e) => handleImageSelect(e.target.files[0]));
@@ -2296,7 +2564,7 @@
                     document.querySelectorAll('#category-selector .cat-option').forEach(o => o.classList.remove('selected'));
                     opt.classList.add('selected');
                     selectedCategory = opt.dataset.value;
-                    
+
                     // Toggle form fields based on category
                     const coffeeGroup = document.getElementById('coffee-beans-group');
                     const sweetGroup = document.getElementById('sweet-desc-group');
@@ -2314,7 +2582,7 @@
                 opt.addEventListener('click', () => {
                     document.querySelectorAll('#edit-category-selector .cat-option').forEach(o => o.classList.remove('selected'));
                     opt.classList.add('selected');
-                    
+
                     // Toggle edit fields
                     const coffeeArea = document.getElementById('edit-coffee-beans-area');
                     const sweetArea = document.getElementById('edit-sweet-desc-area');
@@ -2351,16 +2619,16 @@
                     reader.readAsDataURL(file);
                 }
             });
-            
+
             dropZone.addEventListener('dragover', (e) => {
                 e.preventDefault();
                 dropZone.classList.add('dragover');
             });
-            
+
             dropZone.addEventListener('dragleave', () => {
                 dropZone.classList.remove('dragover');
             });
-            
+
             dropZone.addEventListener('drop', (e) => {
                 e.preventDefault();
                 dropZone.classList.remove('dragover');
@@ -2371,4 +2639,5 @@
         init();
     </script>
 </body>
+
 </html>
