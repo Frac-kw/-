@@ -1519,11 +1519,17 @@
     <div class="modal-overlay" id="service-modal">
         <div class="modal-content">
             <h2 id="service-modal-title">Select Your Order</h2>
+            <!-- Car Order Filter Bar -->
+            <div class="filter-bar" id="service-filter-bar" style="margin-bottom: 20px;">
+                <button class="filter-btn active" data-service-filter="all" title="All">📋</button>
+                <button class="filter-btn" data-service-filter="coffee" title="Coffee">☕</button>
+                <button class="filter-btn" data-service-filter="sweet" title="Sweet">🍰</button>
+            </div>
             <div class="service-items-list" id="service-items-list">
                 <!-- Items will be injected here -->
             </div>
             <div style="margin-bottom: 20px;">
-                <input type="tel" id="customer-phone" placeholder="Phone Number" 
+                <input type="tel" id="customer-phone" placeholder="Phone Number" maxlength="8"
                     style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); background: var(--input-bg); color: var(--text-main);">
             </div>
             <button class="primary-btn" id="submit-service-btn" style="width: 100%;" onclick="submitServiceOrder()">
@@ -1720,6 +1726,7 @@
         let isLoggedIn = false;
         let selectedImageBase64 = "";
         let currentFilter = 'coffee';
+        let serviceFilter = 'all';
         let editingItemId = null;
         let selectedCategory = 'coffee';
 
@@ -1991,6 +1998,12 @@
             const modal = document.getElementById('service-modal');
             modal.classList.toggle('active', show);
             if (show) {
+                orderState = {};
+                serviceFilter = 'all';
+                // Reset filter buttons UI
+                document.querySelectorAll('#service-filter-bar .filter-btn').forEach(b => {
+                    b.classList.toggle('active', b.dataset.serviceFilter === 'all');
+                });
                 renderServiceItems();
             }
         }
@@ -2305,9 +2318,8 @@
         function renderServiceItems() {
             const list = document.getElementById('service-items-list');
             list.innerHTML = '';
-            orderState = {};
-
-            const availableItems = items;
+            
+            const availableItems = serviceFilter === 'all' ? items : items.filter(i => i.category === serviceFilter);
             const t = translations[currentLang];
 
             availableItems.forEach(item => {
@@ -2315,10 +2327,13 @@
                 const name = getLangText(item, 'name');
                 const emoji = item.category === 'sweet' ? '🍰' : '☕';
 
-                orderState[itemKey] = [];
+                if (!orderState[itemKey]) {
+                    orderState[itemKey] = [];
+                }
 
                 const card = document.createElement('div');
-                card.className = 'service-item-card';
+                const isSelected = orderState[itemKey].length > 0;
+                card.className = `service-item-card ${isSelected ? 'selected' : ''}`;
                 card.id = `card-${itemKey}`;
 
                 card.innerHTML = `
@@ -2338,6 +2353,10 @@
                     </div>
                 `;
                 list.appendChild(card);
+                
+                if (isSelected) {
+                    renderInstances(itemKey);
+                }
             });
         }
 
@@ -2451,8 +2470,8 @@
             }
 
             const phone = phoneInput.value.trim();
-            if (!phone) {
-                alert(currentLang === 'en' ? "Please enter your phone number." : "يرجى إدخال رقم الهاتف.");
+            if (!/^\d{8}$/.test(phone)) {
+                alert(currentLang === 'en' ? "Please enter a valid 8-digit phone number." : "يرجى إدخال رقم هاتف صحيح مكون من 8 أرقام.");
                 return;
             }
 
@@ -2460,15 +2479,24 @@
             const originalText = btnText.textContent;
             btnText.textContent = t.sending;
 
-            // Increment Order Counter in Firebase
+            // Increment Order Counter in Firebase with daily reset
             let orderNumber = 1;
             try {
-                const counterRef = db.ref('order_counter');
-                const result = await counterRef.transaction((current) => {
-                    return (current || 0) + 1;
+                const today = new Date().toLocaleDateString('en-CA'); // Get date in YYYY-MM-DD format
+                const statsRef = db.ref('order_stats');
+                const result = await statsRef.transaction((current) => {
+                    if (!current || current.last_reset_date !== today) {
+                        return {
+                            order_counter: 1,
+                            last_reset_date: today
+                        };
+                    } else {
+                        current.order_counter = (current.order_counter || 0) + 1;
+                        return current;
+                    }
                 });
                 if (result.committed) {
-                    orderNumber = result.snapshot.val();
+                    orderNumber = result.snapshot.val().order_counter;
                 }
             } catch (e) {
                 console.error("Counter error:", e);
@@ -2597,12 +2625,22 @@
             });
 
             // Filters
-            document.querySelectorAll('.filter-btn').forEach(btn => {
+            document.querySelectorAll('.items-section .filter-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.items-section .filter-btn').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                     currentFilter = btn.dataset.filter;
                     render();
+                });
+            });
+
+            // Service Modal Filters
+            document.querySelectorAll('#service-filter-bar .filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('#service-filter-bar .filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    serviceFilter = btn.dataset.serviceFilter;
+                    renderServiceItems();
                 });
             });
 
@@ -2633,6 +2671,11 @@
                 e.preventDefault();
                 dropZone.classList.remove('dragover');
                 handleImageSelect(e.dataTransfer.files[0]);
+            });
+
+            // Phone input restriction
+            document.getElementById('customer-phone').addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/\D/g, '').slice(0, 8);
             });
         }
 
