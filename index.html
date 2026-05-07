@@ -1793,6 +1793,51 @@
             });
         }
 
+        function getDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371e3; // metres
+            const φ1 = lat1 * Math.PI / 180;
+            const φ2 = lat2 * Math.PI / 180;
+            const Δφ = (lat2 - lat1) * Math.PI / 180;
+            const Δλ = (lon2 - lon1) * Math.PI / 180;
+
+            const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+                Math.cos(φ1) * Math.cos(φ2) *
+                Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+            return R * c; // in metres
+        }
+
+        async function isNearShop() {
+            return new Promise((resolve) => {
+                if (!navigator.geolocation) {
+                    alert("Geolocation is not supported by your browser.");
+                    resolve(false);
+                    return;
+                }
+
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const shopLat = 29.0871452;
+                        const shopLon = 48.0788365;
+                        const distance = getDistance(shopLat, shopLon, position.coords.latitude, position.coords.longitude);
+
+                        if (distance <= 500) {
+                            resolve(true);
+                        } else {
+                            alert('Order unavailable. You must be near the shop to place an order.');
+                            resolve(false);
+                        }
+                    },
+                    (error) => {
+                        alert('Location access is required to order.');
+                        resolve(false);
+                    },
+                    { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 }
+                );
+            });
+        }
+
         function timeAgo(timestamp) {
             if (!timestamp) return currentLang === 'en' ? 'Recently' : 'منذ قليل';
 
@@ -2310,7 +2355,20 @@
         };
 
         async function sendCarNotification() {
-            toggleServiceModal(true);
+            const btn = document.getElementById('service-request-btn');
+            const originalContent = btn.innerHTML;
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+            const near = await isNearShop();
+
+            btn.disabled = false;
+            btn.innerHTML = originalContent;
+
+            if (near) {
+                toggleServiceModal(true);
+            }
         }
 
         let orderState = {};
@@ -2478,6 +2536,14 @@
             btn.disabled = true;
             const originalText = btnText.textContent;
             btnText.textContent = t.sending;
+
+            // Final location check before proceeding with the order
+            const near = await isNearShop();
+            if (!near) {
+                btn.disabled = false;
+                btnText.textContent = originalText;
+                return;
+            }
 
             // Increment Order Counter in Firebase with daily reset
             let orderNumber = 1;
